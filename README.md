@@ -46,11 +46,11 @@ L’intégralité des fichiers sera disponible sur un dépôt git à communiquer
 Vous devrez utiliser les images et les données actuelles fournies en accompagnement de ce
 document.
 
-- répertoire images : contient les éléments visuels du site.
+    - répertoire images : contient les éléments visuels du site.
 
-- répertoire photos : contient les éléments graphiques du site liés aux données de la base.
+    - répertoire photos : contient les éléments graphiques du site liés aux données de la base.
 
-- fichier AAA-site complet-cooking.sql : contient les données à importer dans votre serveur de BDD.
+    - fichier AAA-site complet-cooking.sql : contient les données à importer dans votre serveur de BDD.
 
 Notes de sécurité :
 
@@ -61,9 +61,9 @@ les requêtes SQL.
 Il ne faut jamais faire confiance aux données provenant d’un navigateur et chaque données arrivant
 sur un serveur web doit être vérifiée avec par exemple l’utilisation des fonctions :
 
-    • filter_input (http://php.net/manual/fr/function.filter-input.php)
+        • filter_input (http://php.net/manual/fr/function.filter-input.php)
     
-    • filter_input_array (http://php.net/manual/fr/function.filter-input-array.php)
+        • filter_input_array (http://php.net/manual/fr/function.filter-input-array.php)
 
 • votre site doit être mis en production sur un serveur apache
 
