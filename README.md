@@ -12,11 +12,11 @@ Il vous est donc demandé de :
 • Réaliser la maquette d’un nouveau site qui permettra de visualiser les différentes
 modifications en terme de mise en page :
 
-    ◦ mobile
+   ◦ mobile
 
-    ◦ tablette
+   ◦ tablette
 
-    ◦ PC
+   ◦ PC
 
 
 • de créer la page d’accueil en fonction de la maquette que vous aurez réalisé
@@ -38,19 +38,19 @@ conseillé d’utiliser du javascript.
 
 Résultats à fournir :
 
-    1. les maquettes du nouveau site
-    2. les pages au format html (web statique adaptable)
-    3. les pages au format php (web dynamique)
+   1. les maquettes du nouveau site
+   2. les pages au format html (web statique adaptable)
+   3. les pages au format php (web dynamique)
 
 L’intégralité des fichiers sera disponible sur un dépôt git à communiquer avant votre présentation.
 Vous devrez utiliser les images et les données actuelles fournies en accompagnement de ce
 document.
 
-    - répertoire images : contient les éléments visuels du site.
+   - répertoire images : contient les éléments visuels du site.
 
-    - répertoire photos : contient les éléments graphiques du site liés aux données de la base.
+   - répertoire photos : contient les éléments graphiques du site liés aux données de la base.
 
-    - fichier AAA-site complet-cooking.sql : contient les données à importer dans votre serveur de BDD.
+   - fichier AAA-site complet-cooking.sql : contient les données à importer dans votre serveur de BDD.
 
 Notes de sécurité :
 
@@ -67,6 +67,6 @@ sur un serveur web doit être vérifiée avec par exemple l’utilisation des fo
 
 • votre site doit être mis en production sur un serveur apache
 
-    ◦ soit en utilisant votre dépôt git
+   ◦ soit en utilisant votre dépôt git
 
-    ◦ soit en utilisant une méthode reposant sur un protocole sécurisé
+   ◦ soit en utilisant une méthode reposant sur un protocole sécurisé
