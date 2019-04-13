@@ -5,7 +5,7 @@ les standards du web actuel. En effet, il n’est pas utilisable sur les mobiles
 dynamisme.
 Page d’accueil de l’ancien site à moderniser:
  
-![ancien site](https://imgur.com/a/dtOfbEu)
+![ancien site](https://i.imgur.com/ZQ6yW15.png)
 
 Il vous est donc demandé de :
 
