@@ -1,4 +1,5 @@
 **Evolution du site Cooking**
+-----------------------------
 
 L’entreprise Cooking depuis 8 ans maintenant possède un site qui doit évoluer car il ne respecte pas
 les standards du web actuel. En effet, il n’est pas utilisable sur les mobiles ou tablettes et manque de
@@ -9,24 +10,19 @@ Page d’accueil de l’ancien site à moderniser:
 
 Il vous est donc demandé de :
 
-• Réaliser la maquette d’un nouveau site qui permettra de visualiser les différentes
+1. Réaliser la maquette d’un nouveau site qui permettra de visualiser les différentes
 modifications en terme de mise en page :
-
-   ◦ mobile
-
-   ◦ tablette
-
-   ◦ PC
-
-
-• de créer la page d’accueil en fonction de la maquette que vous aurez réalisé
-
-• de créer les différentes pages du front-office dans le respect de votre maquette et en utilisant
+    + mobile
+    + tablette
+    + PC
+2. de créer la page d’accueil en fonction de la maquette que vous aurez réalisé
+3. de créer les différentes pages du front-office dans le respect de votre maquette et en utilisant
 la BDD fournie
 
-    ◦ index.php
-    ◦ recette-detail.php
-    ◦ membre-detail.php
+        ◦ index.php
+        ◦ recette-detail.php
+        ◦ membre-detail.php
+
 
 • La recherche sur le site devra être fonctionnelle afin de pouvoir retrouver une ou des recettes
 
@@ -36,7 +32,7 @@ ou foundation (https://foundation.zurb.com/)
 • Afin de rendre également le site plus dynamique (ex : slider, affichage de recettes, ...) il est
 conseillé d’utiliser du javascript.
 
-Résultats à fournir :
+**Résultats à fournir :**
 
    1. les maquettes du nouveau site
    2. les pages au format html (web statique adaptable)
@@ -52,7 +48,7 @@ document.
 
    - fichier AAA-site complet-cooking.sql : contient les données à importer dans votre serveur de BDD.
 
-Notes de sécurité :
+**Notes de sécurité :**
 
 1. Il est interdit d’utiliser directement les superglobales $_POST et $_GET directement dans
 les requêtes SQL.
@@ -65,8 +61,8 @@ sur un serveur web doit être vérifiée avec par exemple l’utilisation des fo
     
         • filter_input_array (http://php.net/manual/fr/function.filter-input-array.php)
 
-• votre site doit être mis en production sur un serveur apache
+• votre site doit être mis en production sur un serveur apache;
 
-   ◦ soit en utilisant votre dépôt git
+  - soit en utilisant votre dépôt git
 
-   ◦ soit en utilisant une méthode reposant sur un protocole sécurisé
+   - soit en utilisant une méthode reposant sur un protocole sécurisé
