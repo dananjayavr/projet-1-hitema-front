@@ -26,7 +26,7 @@ la BDD fournie
 
 • La recherche sur le site devra être fonctionnelle afin de pouvoir retrouver une ou des recettes
 
-• il est recommandé d’utiliser un framework css comme bootstrap (https://getbootstrap.com/)
+• Il est recommandé d’utiliser un framework css comme bootstrap (https://getbootstrap.com/)
 ou foundation (https://foundation.zurb.com/)
 
 • Afin de rendre également le site plus dynamique (ex : slider, affichage de recettes, ...) il est
