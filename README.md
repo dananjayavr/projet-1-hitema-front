@@ -4,7 +4,8 @@
 L’entreprise Cooking depuis 8 ans maintenant possède un site qui doit évoluer car il ne respecte pas
 les standards du web actuel. En effet, il n’est pas utilisable sur les mobiles ou tablettes et manque de
 dynamisme.
-Page d’accueil de l’ancien site à moderniser:
+
+Le page d’accueil de l’ancien site à moderniser:
  
 ![ancien site](https://i.imgur.com/ZQ6yW15.png)
 
