@@ -1,3 +1,25 @@
-.social {
-    float: right;
+/* Boîte de recherche */
+.searchBox {
+    padding: 10%;
+    width: 100%;
+    text-align: center;
+}
+.searchBox button {
+    width: 25%;
+    margin: auto;
+    padding: 0;
+}
+
+/* Recettes en vedette */
+#vedettes {
+}
+
+/* Partage des recettes */
+#partage {
+    padding: 5%;
+    text-align: center;
+}
+
+#partage h1 {
+    padding: 1%;
 }
