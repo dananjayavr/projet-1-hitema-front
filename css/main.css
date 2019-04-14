@@ -1,3 +1,41 @@
+/* meta */
+/********************************************************************************************************/
+.row {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+/* Header and Footer */
+nav {
+    font-family: 'Arvo','sans-serif';
+    font-size: 1.25em;
+}
+
+.navbar-collapse {
+    justify-content: center;
+}
+
+.dropdown-menu {
+    font-family: 'Arvo','sans-serif';
+    font-size: 1em;
+}
+
+/* Body */
+
+body {
+    /*background: linear-gradient(rgba(2,2,1,1), rgba(2,2,1,1)), url(https://www.graphicartsunit.com/images/noise.png);*/
+    /*background-image: url("https://www.graphicartsunit.com/images/noise.png");*/
+}
+.container h1 {
+    font-family: 'Raleway','sans-serif';
+}
+.container p, h6 {
+    font-family: 'Playfair Display','serif';
+}
+.container button {
+    font-family: 'Open Sans','sans-serif';
+    font-size: 1.5em;
+}
+
 /* Boîte de recherche */
 .searchBox {
     padding: 10%;
@@ -5,13 +43,57 @@
     text-align: center;
 }
 .searchBox button {
-    width: 25%;
+    width: 40%;
     margin: auto;
     padding: 0;
 }
 
+.searchBox .btn {
+    width: 180px;
+    height: 45px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.searchBox .btn:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.searchBox .form-control-borderless {
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.searchBox .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border-bottom: 1px solid grey;
+    outline: none;
+    box-shadow: none;
+}
+
 /* Recettes en vedette */
 #vedettes {
+    text-align: center;
+}
+.bio {
+    border-radius: 50%;
+}
+
+.card {
+    box-shadow: 0 8px 6px -6px black;
 }
 
 /* Partage des recettes */
@@ -22,4 +104,40 @@
 
 #partage h1 {
     padding: 1%;
+}
+
+#partage button {
+    display: inline-block;
+    background: #4258f4;
+    color: #fff;
+    font-family: Roboto,'sans-serif';
+    text-transform: uppercase;
+    padding: 20px 30px;
+    border-radius: 5px;
+    box-shadow: 0  17px 10px -10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+}
+#partage button:hover {
+    box-shadow: 0  37px 20px -20px rgba(0, 0, 0, 0.2);
+    transform: translate(0, -10px);
+}
+
+/******************************************************************************************************/
+/* Page Recette */
+.titre-recette {
+    border: 10px double grey;
+    border-top-right-radius: 15px;
+}
+#description {
+    text-align: justify;
+}
+#preparation {
+    text-align: justify;
+}
+#recette-meta {
+    font-weight: bold;
+}
+#ingredients li {
+    font-family: 'Playfair Display','serif';
 }

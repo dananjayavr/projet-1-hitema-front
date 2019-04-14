@@ -7,8 +7,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
     <link rel="stylesheet" href="./css/main.css">
     <title>Cooking!</title>
 </head>
@@ -38,16 +45,15 @@
                     <a class="dropdown-item" href="#">Menus</a>
                     <a class="dropdown-item" href="#">Minceur</a>
                     <a class="dropdown-item" href="#">Atelier</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Contact</a>
                 </div>
             </li>
         </ul>
         <span class="navbar-text">
-            <i class="fab fa-facebook-f p-1"></i>
-            <i class="fab fa-twitter p-1"></i>
-            <i class="fab fa-google-plus-g p-1"></i>
-            <i class="fab fa-youtube p-1"></i>
+            <img src="./assets/images/facebook.png" alt="">
+            <img src="./assets/images/twitter.png" alt="">
+            <img src="./assets/images/google.png" alt="">
+            <img src="./assets/images/youtube.png" alt="">
         </span>
     </div>
 </nav>
