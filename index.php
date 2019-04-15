@@ -1,5 +1,15 @@
 <?php
 include './inc/header.php';
+include './inc/login.php';
+
+$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
+    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+
+/* Recettes en vedette */
+$query = "SELECT r.titre,r.chapo,r.img, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
+$result = $pdo->query($query);
+$recettes = $result->fetch(PDO::FETCH_OBJ);
+
 ?>
 
 <div class="container">
@@ -30,39 +40,19 @@ include './inc/header.php';
         </div>
         <div class="row mx-auto" id="vedettes">
             <div class="row mx-auto">
+                <?php while($recette = $result->fetch(PDO::FETCH_OBJ)) { ?>
                 <div class="col-sm-4 col-xs-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="./assets/photos/recettes/<?php echo $recette->img;?>" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/annie.png" alt="" class="bio">
+                            <h5 class="card-title"><?php echo $recette->titre;?></h5>
+                            <p class="card-text"><?php echo $recette->chapo;?></p>
+                            <p>Proposé par <?php echo ucfirst($recette->prenom);?></p>
+                            <img src="./assets/photos/gravatars/<?php echo $recette->gravatar?>" alt="" class="bio">
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/didier.png" alt="" class="bio">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/laure.png" alt="" class="bio">
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -76,7 +66,6 @@ include './inc/header.php';
         </div>
     </div>
 </div>
-
 
 <?php
 include './inc/footer.php';
