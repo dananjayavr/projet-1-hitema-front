@@ -6,7 +6,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 /* Recettes en vedette */
-$query = "SELECT r.titre,r.chapo,r.img, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
+$query = "SELECT r.titre,r.chapo,r.img, m.idMembre, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
 $result = $pdo->query($query);
 $recettes = $result->fetch(PDO::FETCH_OBJ);
 
@@ -24,7 +24,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
                         <input class="form-control form-control-lg form-control-borderless" type="text" placeholder="Trouver votre inspiration" aria-label="Search">
                     </div>
                     <br>
-                    <button class="btn btn-block" type="submit">Miam!</button>
+                    <button class="btn btn-block" type="submit" action="resultats.php" method="POST">Miam!</button>
                 </form>
             </div>
             <div class="col-sm-12 pt-5">
@@ -47,8 +47,8 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $recette->titre;?></h5>
                             <p class="card-text"><?php echo $recette->chapo;?></p>
-                            <p>Proposé par <?php echo ucfirst($recette->prenom);?></p>
-                            <img src="./assets/photos/gravatars/<?php echo $recette->gravatar?>" alt="" class="bio">
+                            <p>Proposé par <a href="membre-detail.php?idm=<?php echo $recette->idMembre; ?>"><?php echo ucfirst($recette->prenom);?></a></p>
+                            <img src="./assets/photos/gravatars/<?php echo $recette->gravatar?>" alt="photo <?php echo $recette->prenom;?>" class="bio">
                         </div>
                     </div>
                 </div>

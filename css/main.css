@@ -133,9 +133,11 @@ body {
 }
 #description {
     text-align: justify;
+    font-family: 'Playfair Display','serif';
 }
-#preparation {
+#preparation li {
     text-align: justify;
+    font-family: 'Playfair Display','serif';
 }
 #recette-meta {
     font-weight: bold;
@@ -145,6 +147,16 @@ body {
 }
 
 /* Page membre */
+#bg-texture {
+    width: 1200px;
+    height: 300px;
+}
+
+#bio-pic {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
 
 /* Page resultats */
 #resultats .col-sm-4 {
