@@ -1,56 +1,46 @@
-<?php include "./inc/header.php";?>
+<?php
+include "./inc/header.php";
+include './inc/login.php';
+$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
+    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+$sterm = filter_input(INPUT_POST,'searchTerm',FILTER_SANITIZE_STRING);
+$sterm1 = str_replace('%20','',$sterm);
+
+/* Détails recette */
+$query = "SELECT r.idRecette, r.titre, r.chapo, r.img, m.prenom,m.gravatar FROM recettes r, membres m WHERE titre LIKE '%$sterm1%' AND r.membre=m.idMembre";
+$query_row = "SELECT COUNT(*) FROM recettes WHERE titre LIKE '%$sterm1%'";
+
+$row_count = $pdo->query($query_row)->fetchColumn();
+$result = $pdo->query($query);
+//$recettes = $result->fetch(PDO::FETCH_OBJ);
+$class="";
+if ($row_count==1) {
+    $class="col-md-6";
+} else {
+    $class="col-sm-4 col-md-6";
+}
+?>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4 class="p-5">X resultats contenant le terme 'recherche'</h4>
+            <h4 class="p-5"><?php echo $row_count;?> résultat(s) contenant le terme '<?php echo $sterm1;?>'</h4>
             <hr>
         </div>
         <div class="row mx-auto" id="resultats">
             <div class="row mx-auto">
-                <div class="col-sm-4 col-xs-4">
+                <?php while ($recettes = $result->fetch(PDO::FETCH_OBJ)) { ?>
+                <div class="<?php echo $class;?>">
                     <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
+                        <img class="card-img-top" src="./assets/photos/recettes/<?php echo $recettes->img;?>" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/annie.png" alt="" class="bio">
+                            <a href="recette-detail.php?idr=<?php echo $recettes->idRecette;?>"><h5 class="card-title"><?php echo $recettes->titre;?></h5></a>
+                            <p class="card-text"><?php echo $recettes->chapo;?></p>
+                            <p>Proposé par <?php echo $recettes->prenom;?></p>
+                            <img src="./assets/photos/gravatars/<?php echo $recettes->gravatar; ?>" alt="" class="bio">
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/didier.png" alt="" class="bio">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/laure.png" alt="" class="bio">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p>Proposé par Annie</p>
-                            <img src="./assets/photos/gravatars/laure.png" alt="" class="bio">
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>

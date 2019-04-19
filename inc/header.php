@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Arvo:700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
@@ -21,8 +21,8 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <img src="./assets/images/logo-cooking.png" alt="Cooking Logo">
+    <a class="navbar-brand" href="index.php">
+        <img src="./assets/images/home-icon.png" alt="Cooking Logo" height="100" width="100">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,10 +50,10 @@
             </li>
         </ul>
         <span class="navbar-text">
-            <img src="./assets/images/facebook.png" alt="">
-            <img src="./assets/images/twitter.png" alt="">
-            <img src="./assets/images/google.png" alt="">
-            <img src="./assets/images/youtube.png" alt="">
+            <i class="fab fa-facebook-f p-2"></i>
+            <i class="fab fa-twitter p-2"></i>
+            <i class="fab fa-google-plus-g p-2"></i>
+            <i class="fab fa-youtube p-2"></i>
         </span>
     </div>
 </nav>

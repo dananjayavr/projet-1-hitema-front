@@ -7,7 +7,7 @@
 }
 /* Header and Footer */
 nav {
-    font-family: 'Arvo','sans-serif';
+    font-family: 'Source Sans Pro','sans-serif';
     font-size: 1.25em;
 }
 
@@ -16,7 +16,7 @@ nav {
 }
 
 .dropdown-menu {
-    font-family: 'Arvo','sans-serif';
+    font-family: 'Source Sans Pro','sans-serif';
     font-size: 1em;
 }
 
@@ -26,11 +26,15 @@ body {
     /*background: linear-gradient(rgba(2,2,1,1), rgba(2,2,1,1)), url(https://www.graphicartsunit.com/images/noise.png);*/
     /*background-image: url("https://www.graphicartsunit.com/images/noise.png");*/
 }
+.container {
+    background-color: white;
+}
+
 .container h1 {
     font-family: 'Raleway','sans-serif';
 }
 .container p, h6 {
-    font-family: 'Playfair Display','serif';
+    font-family: 'Source Sans Pro','serif';
 }
 .container button {
     font-family: 'Open Sans','sans-serif';
@@ -42,11 +46,19 @@ body {
     padding: 10%;
     width: 100%;
     text-align: center;
+    background: url('../assets/photos/backgrounds/bg-search-low.jpg');
+    background-size: cover;
+    border-radius: 5px;
 }
 .searchBox button {
     width: 40%;
     margin: auto;
     padding: 0;
+}
+
+.searchBox h1 {
+    color: white;
+    font-weight: bolder;
 }
 
 .searchBox .btn {
@@ -95,12 +107,23 @@ body {
 
 .card {
     box-shadow: 0 8px 6px -6px black;
+    font-family: "Source Sans Pro",'sans-serif';
+}
+.card-text {
+    font-family: "Source Sans Pro",'sans-serif';
 }
 
 /* Partage des recettes */
 #partage {
     padding: 5%;
     text-align: center;
+    /*background: url("../assets/photos/backgrounds/footer-bg.png") repeat 0 0 #8BBE7C;*/
+    background: url("../assets/photos/backgrounds/footer-bg-alt.jpg") no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
 }
 
 #partage h1 {
@@ -109,19 +132,21 @@ body {
 
 #partage button {
     display: inline-block;
-    background: #4258f4;
+    /*background: #4258f4;*/
+    background: #2EE59D;
     color: #fff;
     font-family: Roboto,'sans-serif';
     text-transform: uppercase;
     font-size: 15px;
     padding: 20px 30px;
+    border: white;
     border-radius: 5px;
-    box-shadow: 0  17px 10px -10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0  17px 10px -10px rgba(0, 0, 0, 0);
     cursor: pointer;
     transition: all ease-in-out 300ms;
 }
 #partage button:hover {
-    box-shadow: 0  37px 20px -20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0  37px 20px -20px rgba(0, 0, 0, 0);
     transform: translate(0, -10px);
 }
 
@@ -133,17 +158,20 @@ body {
 }
 #description {
     text-align: justify;
-    font-family: 'Playfair Display','serif';
+    font-family: 'Source Sans Pro','sans-serif';
+    font-size: 1.25em;
 }
 #preparation li {
     text-align: justify;
-    font-family: 'Playfair Display','serif';
+    font-family: 'Source Sans Pro','sans-serif';
+    font-size: 1.1em;
 }
 #recette-meta {
     font-weight: bold;
 }
 #ingredients li {
-    font-family: 'Playfair Display','serif';
+    font-family: 'Source Sans Pro','sans-serif';
+    font-size: 1.1em;
 }
 
 /* Page membre */
@@ -156,6 +184,21 @@ body {
     border-radius: 50%;
     width: 150px;
     height: 150px;
+}
+
+#banner {
+    background: url("../assets/photos/textures/pattern.png");
+    height: 150px;
+    border-radius: 20px;
+}
+
+.bio-bg {
+    background: url("../assets/photos/textures/pattern.png");
+    border-radius: 15px;
+}
+
+.bio-summary {
+    font-family: "Source Sans Pro", 'sans-serif';
 }
 
 /* Page resultats */
