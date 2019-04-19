@@ -46,7 +46,8 @@ body {
     padding: 10%;
     width: 100%;
     text-align: center;
-    background: url('../assets/photos/backgrounds/bg-search-low.jpg');
+    background: url('../assets/photos/backgrounds/bg-search-alt-hands.jpg');
+    background-position-y: center;
     background-size: cover;
     border-radius: 5px;
 }
