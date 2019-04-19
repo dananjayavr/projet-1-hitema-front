@@ -1,6 +1,6 @@
 <?php
 $hn = 'localhost';
-$db = 'publications';
+$db = 'cooking';
 $un = 'irondev';
 $pw = 'adminadmin';
 ?>

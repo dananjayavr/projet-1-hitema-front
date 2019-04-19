@@ -1,10 +1,17 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<nav class="navbar navbar-light bg-light" id="footer">
+<nav class="navbar navbar-light bg-light mt-5" id="footer">
     <span class="navbar-text mx-auto">
         <a href="#">Recettes</a> | <a href="#">Menus</a> | <a href="#">Desserts</a> | <a href="#">Minceur</a> | <a
                 href="#">Atelier</a> | <a href="#">Contact</a>
+        <br>
+        <div class="socialFooter text-center">
+            <i class="fab fa-facebook-f p-2"></i>
+            <i class="fab fa-twitter p-2"></i>
+            <i class="fab fa-google-plus-g p-2"></i>
+            <i class="fab fa-youtube p-2"></i>
+        </div>
     </span>
 </nav>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
