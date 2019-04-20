@@ -26,7 +26,8 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
             <div class="col-sm-12">
                 <form class="form-block" action="resultats.php" method="POST">
                     <div class="md-form mt-0">
-                        <input class="form-control form-control-lg form-control-borderless" type="text" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm">
+                        <input class="form-control form-control-lg form-control-borderless" type="text" pattern="^[A-Za-z]*$|^[A-Za-z][A-Za-z ]*[A-Za-z]*$" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm" required oninvalid="this.setCustomValidity('Veuillez saisir au moins un ingrédient')"
+                               oninput="setCustomValidity('')">
                     </div>
                     <br>
                     <button class="btn btn-block" type="submit">Miam!</button>
