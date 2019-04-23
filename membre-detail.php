@@ -1,15 +1,8 @@
 <?php
-include "./inc/header.php";
-include "./inc/login.php";
+require_once 'inc/init.php';
 
-$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
-    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 $id_utilisateur = filter_input(INPUT_GET,'idm',FILTER_SANITIZE_ENCODED);
-$couleurs = array(
-    "fushia" => "#ff77ff",
-    "bleuClair" => "#30bdf0",
-    "vertClair" => "#8bc13f",
-);
+
 /* Détails membres */
 $query_m = "SELECT gravatar, prenom, nom, dateCrea FROM membres WHERE idMembre='$id_utilisateur';";
 $result_m = $pdo->query($query_m);

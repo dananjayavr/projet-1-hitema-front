@@ -1,16 +1,8 @@
 <?php
-include "./inc/header.php";
-include './inc/login.php';
-$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
-    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+require_once 'inc/init.php';
 
 $id_recette = filter_input(INPUT_GET,'idr',FILTER_SANITIZE_ENCODED);
-// Colour chart
-$couleurs = array(
-  "fushia" => "#ff77ff",
-  "bleuClair" => "#30bdf0",
-  "vertClair" => "#8bc13f",
-);
+
 /* Détails recette */
 $query = "SELECT r.idRecette, r.img, r.chapo, r.titre, r.difficulte, r.preparation,r.tempsPreparation, r.tempsCuisson, r.ingredient, r.tempsPreparation, r.prix, r.dateCrea, r.couleur, m.prenom,m.idMembre,c.nom FROM recettes r, membres m, categories c WHERE r.idRecette='$id_recette' AND m.idMembre=r.membre AND r.categorie=c.idCategorie;";
 $result = $pdo->query($query);

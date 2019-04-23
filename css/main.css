@@ -195,6 +195,8 @@ body {
     border-radius: 50%;
     width: 150px;
     height: 150px;
+    border: 8px solid white;
+    box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2);
 }
 
 #banner {

@@ -1,15 +1,10 @@
 <?php
-include "./inc/header.php";
-include './inc/login.php';
-$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
-    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+
+require_once 'inc/init.php';
+
 $sterm = filter_input(INPUT_POST,'searchTerm',FILTER_SANITIZE_STRING);
 $sterm1 = str_replace('%20','',$sterm);
-$couleurs = array(
-    "fushia" => "#ff77ff",
-    "bleuClair" => "#30bdf0",
-    "vertClair" => "#8bc13f",
-);
+
 /* Détails recette */
 $query = "SELECT r.idRecette, r.titre, r.chapo, r.img, r.membre, r.couleur, m.prenom,m.gravatar FROM recettes r, membres m WHERE titre LIKE '%$sterm1%' AND r.membre=m.idMembre";
 $query_row = "SELECT COUNT(*) FROM recettes WHERE titre LIKE '%$sterm1%'";

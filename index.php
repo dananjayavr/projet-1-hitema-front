@@ -1,10 +1,5 @@
 <?php
-
-include './inc/header.php';
-include './inc/login.php';
-
-$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
-    array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+require_once 'inc/init.php';
 
 /* Recettes en vedette */
 $query = "SELECT r.idRecette, r.titre, r.chapo,r.img, m.idMembre, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
