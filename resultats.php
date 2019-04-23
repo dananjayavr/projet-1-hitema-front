@@ -5,9 +5,13 @@ $pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 $sterm = filter_input(INPUT_POST,'searchTerm',FILTER_SANITIZE_STRING);
 $sterm1 = str_replace('%20','',$sterm);
-
+$couleurs = array(
+    "fushia" => "#ff77ff",
+    "bleuClair" => "#30bdf0",
+    "vertClair" => "#8bc13f",
+);
 /* Détails recette */
-$query = "SELECT r.idRecette, r.titre, r.chapo, r.img, r.membre, m.prenom,m.gravatar FROM recettes r, membres m WHERE titre LIKE '%$sterm1%' AND r.membre=m.idMembre";
+$query = "SELECT r.idRecette, r.titre, r.chapo, r.img, r.membre, r.couleur, m.prenom,m.gravatar FROM recettes r, membres m WHERE titre LIKE '%$sterm1%' AND r.membre=m.idMembre";
 $query_row = "SELECT COUNT(*) FROM recettes WHERE titre LIKE '%$sterm1%'";
 
 $row_count = $pdo->query($query_row)->fetchColumn();
@@ -33,7 +37,7 @@ if ($row_count==1) {
                     <div class="card">
                         <img class="card-img-top" src="./assets/photos/recettes/<?php echo $recettes->img;?>" alt="Card image cap">
                         <div class="card-body">
-                            <a href="recette-detail.php?idr=<?php echo $recettes->idRecette;?>"><h5 class="card-title"><?php echo $recettes->titre;?></h5></a>
+                            <a href="recette-detail.php?idr=<?php echo $recettes->idRecette;?>"><h5 class="card-title" style="border-bottom: 5px solid <?php echo $couleurs[$recettes->couleur];?>"><?php echo $recettes->titre;?></h5></a>
                             <p class="card-text"><?php echo $recettes->chapo;?></p>
                             <p>Proposé par <a href="membre-detail.php?idm=<?php echo $recettes->membre; ?>"><?php echo $recettes->prenom;?></a></p>
                             <img src="./assets/photos/gravatars/<?php echo $recettes->gravatar; ?>" alt="" class="bio">

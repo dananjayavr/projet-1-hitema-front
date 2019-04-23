@@ -1,4 +1,5 @@
 <?php
+
 include './inc/header.php';
 include './inc/login.php';
 
@@ -6,7 +7,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 /* Recettes en vedette */
-$query = "SELECT r.idRecette, r.titre,r.chapo,r.img, m.idMembre, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
+$query = "SELECT r.idRecette, r.titre, r.chapo,r.img, m.idMembre, m.prenom, m.gravatar FROM recettes r, membres m WHERE r.membre=m.idMembre ORDER BY RAND() LIMIT 4;";
 $result = $pdo->query($query);
 $recettes = $result->fetch(PDO::FETCH_OBJ);
 
@@ -24,7 +25,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
                 <h1>Trouver une recette</h1>
             </div>
             <div class="col-sm-12">
-                <form class="form-block" action="resultats.php" method="POST">
+                <form class="form-block" action="resultats.php" method="POST"  autocomplete='on'>
                     <div class="md-form mt-0">
                         <input class="form-control form-control-lg form-control-borderless" type="text" pattern="^[A-zÀ-ú]*$|^[A-zÀ-ú][A-zÀ-ú]*[A-zÀ-ú]*$" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm" required oninvalid="this.setCustomValidity('Veuillez saisir au moins un ingrédient')"
                                oninput="setCustomValidity('')">

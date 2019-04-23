@@ -5,26 +5,32 @@ $pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 $id_recette = filter_input(INPUT_GET,'idr',FILTER_SANITIZE_ENCODED);
-
+// Colour chart
+$couleurs = array(
+  "fushia" => "#ff77ff",
+  "bleuClair" => "#30bdf0",
+  "vertClair" => "#8bc13f",
+);
 /* Détails recette */
-$query = "SELECT r.idRecette, r.img, r.chapo, r.titre, r.difficulte, r.preparation,r.tempsPreparation, r.tempsCuisson, r.ingredient, r.tempsPreparation, r.prix, r.dateCrea,m.prenom,m.idMembre,c.nom FROM recettes r, membres m, categories c WHERE r.idRecette='$id_recette' AND m.idMembre=r.membre AND r.categorie=c.idCategorie;";
+$query = "SELECT r.idRecette, r.img, r.chapo, r.titre, r.difficulte, r.preparation,r.tempsPreparation, r.tempsCuisson, r.ingredient, r.tempsPreparation, r.prix, r.dateCrea, r.couleur, m.prenom,m.idMembre,c.nom FROM recettes r, membres m, categories c WHERE r.idRecette='$id_recette' AND m.idMembre=r.membre AND r.categorie=c.idCategorie;";
 $result = $pdo->query($query);
 $recette = $result->fetch(PDO::FETCH_OBJ);
+
 ?>
 <div class="container">
     <div class="row mx-auto pt-5">
-        <div class="col-sm-12 titre-recette p-5">
+        <div class="col-sm-12 titre-recette p-5 text-center" style="color: <?php echo $couleurs[$recette->couleur];?>">
             <h1><?php echo $recette->titre;?></h1>
             <h6>Par <a href="membre-detail.php?idm=<?php echo $recette->idMembre; ?>"><?php echo ucfirst($recette->prenom); ?></a> | <i class="fas fa-utensils"></i> <?php echo $recette->difficulte; ?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix ?> | <?php echo substr($recette->dateCrea,0,10);?></h6>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-sm-6">
-            <img src="./assets/photos/recettes/<?php echo $recette->img;?>" class="rounded img-fluid" alt="...">
+    <div class="row justify-content-center mx-auto">
+        <div class="col-sm-6 pb-5">
+            <img src="./assets/photos/recettes/<?php echo $recette->img;?>" class="rounded img-fluid" alt="<?php echo substr($recette->img,0, strpos($recette->img,'.'));?>" id="imageRecette">
         </div>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
         <div class="col-sm-6 col-md-12 p-2">
             <p id="description">
                 <?php echo $recette->chapo; ?>
@@ -32,7 +38,7 @@ $recette = $result->fetch(PDO::FETCH_OBJ);
             <h6 id="recette-meta">Cuisson: <?php echo $recette->tempsCuisson;?> | Préparation: <?php echo $recette->tempsPreparation; ?> | Catégorie: <?php echo $recette->nom?></h6>
         </div>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
         <div class="col-sm-6 p-2" id="ingredients">
             <h5>Ingrédients</h5>
             <ul>
@@ -40,7 +46,7 @@ $recette = $result->fetch(PDO::FETCH_OBJ);
             </ul>
         </div>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
         <div class="col-sm-6 col-md-12 p-2">
             <h5>Préparation</h5>
             <div id="preparation">

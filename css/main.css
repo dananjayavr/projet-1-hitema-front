@@ -154,8 +154,11 @@ body {
 /******************************************************************************************************/
 /* Page Recette */
 .titre-recette {
-    border: 10px double grey;
+    border: 10px double;
     border-top-right-radius: 15px;
+}
+.titre-recette h6 {
+    color: black;
 }
 #description {
     text-align: justify;
@@ -173,6 +176,13 @@ body {
 #ingredients li {
     font-family: 'Source Sans Pro','sans-serif';
     font-size: 1.1em;
+}
+
+#imageRecette {
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2);
+    transform: rotate(6deg);
 }
 
 /* Page membre */

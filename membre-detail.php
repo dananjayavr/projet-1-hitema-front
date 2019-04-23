@@ -5,7 +5,11 @@ include "./inc/login.php";
 $pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 $id_utilisateur = filter_input(INPUT_GET,'idm',FILTER_SANITIZE_ENCODED);
-
+$couleurs = array(
+    "fushia" => "#ff77ff",
+    "bleuClair" => "#30bdf0",
+    "vertClair" => "#8bc13f",
+);
 /* Détails membres */
 $query_m = "SELECT gravatar, prenom, nom, dateCrea FROM membres WHERE idMembre='$id_utilisateur';";
 $result_m = $pdo->query($query_m);
@@ -37,7 +41,7 @@ $membre = $result_m->fetch(PDO::FETCH_OBJ);
     </div>
     <hr>
     <?php
-    $query_r = "SELECT idRecette, img, chapo, titre, difficulte, tempsPreparation, prix FROM recettes WHERE membre='$id_utilisateur';";
+    $query_r = "SELECT idRecette, img, chapo, titre, difficulte, tempsPreparation, prix, couleur FROM recettes WHERE membre='$id_utilisateur';";
     $result = $pdo->query($query_r);
     //$recettes = $result->fetch(PDO::FETCH_OBJ);
     ?>
@@ -54,7 +58,7 @@ $membre = $result_m->fetch(PDO::FETCH_OBJ);
                             <br>
                             <strong><i class="fas fa-utensils pt-2"></i> <?php echo $recette->difficulte?> | <i class="far fa-clock"></i> <?php echo $recette->tempsPreparation?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix?></strong>
                         </p>
-                        <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg" role="button">Je cuisine!</a>
+                        <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
                     </div>
                 </div>
             </div>
