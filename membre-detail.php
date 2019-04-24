@@ -7,7 +7,11 @@ $id_utilisateur = filter_input(INPUT_GET,'idm',FILTER_SANITIZE_ENCODED);
 $query_m = "SELECT gravatar, prenom, nom, dateCrea FROM membres WHERE idMembre='$id_utilisateur';";
 $result_m = $pdo->query($query_m);
 $membre = $result_m->fetch(PDO::FETCH_OBJ);
-
+if(!$membre) {
+    header("HTTP/1.1 301 Moved Permanently");
+    header( 'Location: 404.php' ) ;
+    exit;
+}
 /*$membre = $result->fetch(PDO::FETCH_OBJ);*/
 
 ?>

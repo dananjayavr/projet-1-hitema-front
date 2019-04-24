@@ -7,7 +7,11 @@ $id_recette = filter_input(INPUT_GET,'idr',FILTER_SANITIZE_ENCODED);
 $query = "SELECT r.idRecette, r.img, r.chapo, r.titre, r.difficulte, r.preparation,r.tempsPreparation, r.tempsCuisson, r.ingredient, r.tempsPreparation, r.prix, r.dateCrea, r.couleur, m.prenom,m.idMembre,c.nom FROM recettes r, membres m, categories c WHERE r.idRecette='$id_recette' AND m.idMembre=r.membre AND r.categorie=c.idCategorie;";
 $result = $pdo->query($query);
 $recette = $result->fetch(PDO::FETCH_OBJ);
-
+if (!$recette) {
+    header("HTTP/1.1 301 Moved Permanently");
+    header( 'Location: 404.php' ) ;
+    exit;
+}
 ?>
 <div class="container">
     <div class="row mx-auto pt-5">
