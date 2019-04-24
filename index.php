@@ -47,7 +47,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
                     <div class="card h-100">
                         <img class="card-img-top" src="./assets/photos/recettes/<?php echo $recette->img;?>" alt="Card image cap">
                         <div class="card-body">
-                            <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>"><h5 class="card-title"><?php echo $recette->titre;?></h5></a>
+                            <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>"><h3 class="card-title"><?php echo $recette->titre;?></h3></a>
                             <p class="card-text"><?php echo $recette->chapo;?></p>
                             <p>Proposé par <a href="membre-detail.php?idm=<?php echo $recette->idMembre; ?>"><?php echo ucfirst($recette->prenom);?></a></p>
                             <img src="./assets/photos/gravatars/<?php echo $recette->gravatar?>" alt="photo <?php echo $recette->prenom;?>" class="bio">
