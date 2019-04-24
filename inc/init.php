@@ -3,7 +3,7 @@
 include './inc/header.php';
 include './inc/login.php';
 
-$pdo = new PDO('mysql:host=localhost;dbname=cooking',$un,$pw,
+$pdo = new PDO('mysql:host=localhost;dbname='.$db,$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 // Colour chart
