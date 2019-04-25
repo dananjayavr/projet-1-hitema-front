@@ -3,9 +3,10 @@
 include './inc/header.php';
 include './inc/login.php';
 
-$pdo = new PDO('mysql:host=localhost;charset=utf8;dbname='.$db,$un,$pw,
+$pdo = new PDO('mysql:host='.$hn.';charset=utf8;dbname='.$db,$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 header('Content-Type: text/html; charset=utf-8');
+
 // Colour chart
 $couleurs = array(
     "fushia" => "#ca2c92",
