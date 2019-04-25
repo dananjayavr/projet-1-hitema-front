@@ -3,7 +3,7 @@
 require_once 'inc/init.php';
 
 $sterm = filter_input(INPUT_POST,'searchTerm',FILTER_SANITIZE_STRING);
-$sterm1 = str_replace('%20','',$sterm);
+$sterm1 = trim($sterm," ");
 
 /* Détails recette */
 $query = "SELECT r.idRecette, r.titre, r.chapo, r.img, r.membre, r.couleur, m.prenom,m.gravatar FROM recettes r, membres m WHERE titre LIKE '%$sterm1%' AND r.membre=m.idMembre";

@@ -22,7 +22,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
             <div class="col-sm-12">
                 <form class="form-block" action="resultats.php" method="POST"  autocomplete='on'>
                     <div class="md-form mt-0">
-                        <input class="form-control form-control-lg form-control-borderless" type="text" pattern="^[A-zÀ-ú]*$|^[A-zÀ-ú][A-zÀ-ú]*[A-zÀ-ú]*$" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm" required oninvalid="this.setCustomValidity('Veuillez saisir au moins un ingrédient')"
+                        <input class="form-control form-control-lg form-control-borderless" type="text" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm" required oninvalid="this.setCustomValidity('Veuillez saisir au moins un ingrédient')"
                                oninput="setCustomValidity('')">
                     </div>
                     <br>
