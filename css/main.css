@@ -218,3 +218,8 @@ body {
 #resultats .col-sm-4 {
     margin-bottom: 20px;
 }
+
+/* Page d'inscription */
+#titreInscription {
+    font-size: 2em;
+}
