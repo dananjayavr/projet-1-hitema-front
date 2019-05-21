@@ -36,7 +36,13 @@ if(!empty($_POST)) {
     <?php }
 }
 ?>
-
+<style>
+    @media only screen and (max-width: 600px) {
+        #footer {
+            display: none;
+        }
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-12 text-center pt-5">
@@ -65,13 +71,12 @@ if(!empty($_POST)) {
                 </div>
                 <br>
                 <div class="alertArea"></div>
-                <button type="submit" class="btn btn-primary btn-block btn-sm" id="inscrire">S'inscrire</button>
+                <button type="submit" class="btn btn-primary btn-block btn-sm mb-5" id="inscrire">S'inscrire</button>
             </form>
         </div>
         <div class="col"></div>
     </div>
 </div>
-
 <nav class="navbar navbar-light fixed-bottom bg-light" id="footer">
     <span class="navbar-text mx-auto">
         <a href="#">Recettes</a> | <a href="#">Menus</a> | <a href="#">Desserts</a> | <a href="#">Minceur</a> | <a

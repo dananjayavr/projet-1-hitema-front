@@ -19,7 +19,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
             <div class="col-sm-12 pb-5">
                 <h1>Trouver une recette</h1>
             </div>
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 <form class="form-block" action="resultats.php" method="POST"  autocomplete='on'>
                     <div class="md-form mt-0">
                         <input class="form-control form-control-lg form-control-borderless" type="text" placeholder="Trouver votre inspiration" aria-label="Search" name="searchTerm" required oninvalid="this.setCustomValidity('Veuillez saisir au moins un ingrédient')"
@@ -60,7 +60,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
     </div>
     <hr>
     <div class="row mx-auto mb-5" id="partage">
-        <div class="col-sm-12 pb-5">
+        <div class="col-xs-12 pb-5">
             <h1>Partager une recette</h1>
         </div>
         <div class="col-sm-12">
