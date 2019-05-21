@@ -2,6 +2,28 @@
 require_once 'inc/init.php';
 ?>
 
+<?php
+$pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
+$mp = filter_input(INPUT_POST, 'mp', FILTER_SANITIZE_STRING);
+
+$query = "SELECT * FROM membres WHERE login='$pseudo'";
+$result = $pdo->query($query);
+$user = $result->fetch(PDO::FETCH_OBJ);
+
+if(!empty($_POST)) {
+    if($user && password_verify($mp,$user->password)) {
+        header('Location: index.php');
+    } else { ?>
+        <script>
+            $(document).ready(() => {
+                $('.alertBox').append("<div class=\"alert alert-danger\" role=\"alert\">\n" +
+                    "  Un erreur a été détécté. Veuillez vérifier votre pseudo et mot de passe.\n" +
+                    "</div>");
+            });
+        </script>
+    <?php } ?>
+<?php } ?>
+
 <div class="container">
     <div class="row">
         <div class="col-12 text-center pt-5">
@@ -57,19 +79,3 @@ require_once 'inc/init.php';
         },2000);
     </script>
 <?php } ?>
-
-<?php
-$pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
-$mp = filter_input(INPUT_POST, 'mp', FILTER_SANITIZE_STRING);
-
-$query = "SELECT * FROM membres WHERE login='$pseudo'";
-$result = $pdo->query($query);
-$user = $result->fetch(PDO::FETCH_OBJ);
-
-if($user && password_verify($mp,$user->password)) {
-    echo "OK";
-}
-if(password_verify($mp,$user->password) == false) {
-    echo "Error.";
-}
-?>
