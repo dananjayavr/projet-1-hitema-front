@@ -1,7 +1,7 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<nav class="navbar navbar-light bg-light mt-5" id="footer">
+<nav class="navbar navbar-light bg-light" id="footer">
     <span class="navbar-text mx-auto">
         <a href="#">Recettes</a> | <a href="#">Menus</a> | <a href="#">Desserts</a> | <a href="#">Minceur</a> | <a
                 href="#">Atelier</a> | <a href="#">Contact</a>

@@ -59,7 +59,7 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
         </div>
     </div>
     <hr>
-    <div class="row mx-auto" id="partage">
+    <div class="row mx-auto mb-5" id="partage">
         <div class="col-sm-12 pb-5">
             <h1>Partager une recette</h1>
         </div>

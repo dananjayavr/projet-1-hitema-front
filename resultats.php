@@ -38,7 +38,7 @@ if ($row_count==1) {
                             <img src="./assets/photos/gravatars/<?php echo $recettes->gravatar; ?>" alt="" class="bio">
                         </div>
                     </div>
-
+                </div>
                 <?php } ?>
             </div>
         </div>
