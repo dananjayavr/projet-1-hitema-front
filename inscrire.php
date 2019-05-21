@@ -8,9 +8,10 @@ $mp = password_hash(filter_input(INPUT_POST, 'mp', FILTER_SANITIZE_STRING), PASS
 //$dateCreation = date("Y-m-d g:i:s");
 $gravatar = 'default.png';
 $statut = 'membre';
-
-$query = "INSERT INTO membres (gravatar, login, password, statut, prenom, nom) VALUES ('$gravatar','$pseudo','$mp','$statut','$prenom','$nom')";
-$result = $pdo->query($query);
+if(!empty($_POST)) {
+    $query = "INSERT INTO membres (gravatar, login, password, statut, prenom, nom) VALUES ('$gravatar','$pseudo','$mp','$statut','$prenom','$nom')";
+    $result = $pdo->query($query);
+}
 
 if(!empty($_POST)) {
     if ($result) { ?>
