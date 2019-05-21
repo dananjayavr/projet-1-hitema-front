@@ -12,6 +12,14 @@ $user = $result->fetch(PDO::FETCH_OBJ);
 
 if(!empty($_POST)) {
     if($user && password_verify($mp,$user->password)) {
+
+        $_SESSION['idMembre'] = $user->idMembre;
+        $_SESSION['gravatar'] = $user->gravatar;
+        $_SESSION['login'] = $user->login;
+        $_SESSION['statut'] = $user->statut;
+        $_SESSION['prenom'] = $user->prenom;
+        $_SESSION['nom'] = $user->nom;
+
         header('Location: index.php');
     } else { ?>
         <script>
@@ -72,7 +80,7 @@ if(!empty($_POST)) {
 <?php if(isset($_GET['submitted']) && $_GET['submitted']=="success") { ?>
     <script>
         $('.alertBox').append("<div class=\"alert alert-success\" role=\"alert\">\n" +
-            "  Votre profil a été créé. Veuillez se connecter.\n" +
+            "  Votre profil a été créé. Veuillez vous connecter.\n" +
             "</div>");
         setTimeout(() => {
             $('.alertBox').remove();

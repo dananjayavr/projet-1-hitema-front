@@ -33,25 +33,50 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="connecter.php">Se connecter<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="inscrire.php">Créer un compte</a>
-            </li>
+            <?php
+            if (isset($_SESSION['login'])) { ?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="deconnecter.php">Se déconnecter<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Recettes<span class="sr-only">(Current)</span></a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="connecter.php">Se connecter<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="inscrire.php">Créer un compte</a>
+                </li>
+            <?php }
+            ?>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Plus
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Recettes</a>
-                    <a class="dropdown-item" href="#">Menus</a>
-                    <a class="dropdown-item" href="#">Minceur</a>
-                    <a class="dropdown-item" href="#">Atelier</a>
-                    <a class="dropdown-item" href="#">Contact</a>
+                    <?php
+                    if (isset($_SESSION['login'])) { ?>
+                        <a class="dropdown-item" href="#">Menus</a>
+                        <a class="dropdown-item" href="#">Minceur</a>
+                        <a class="dropdown-item" href="#">Atelier</a>
+                        <a class="dropdown-item" href="#">Contact</a>
+                    <?php } else { ?>
+                        <a class="dropdown-item" href="#">Recettes</a>
+                        <a class="dropdown-item" href="#">Menus</a>
+                        <a class="dropdown-item" href="#">Minceur</a>
+                        <a class="dropdown-item" href="#">Atelier</a>
+                        <a class="dropdown-item" href="#">Contact</a>
+                    <?php } ?>
                 </div>
             </li>
         </ul>
+        <?php
+        if (isset($_SESSION['login'])) { ?>
+            <li class="nav-item active" id="username">
+                <a class="nav-link" href="membre-detail.php?idm=<?=$_SESSION['idMembre']?>">Bienvenue <?=$_SESSION['prenom']?></a>
+            </li>
+        <?php } ?>
         <span class="navbar-text">
             <i class="fab fa-facebook-f p-2"></i>
             <i class="fab fa-twitter p-2"></i>

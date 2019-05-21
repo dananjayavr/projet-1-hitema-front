@@ -20,6 +20,13 @@ nav {
     font-size: 1em;
 }
 
+#username {
+    list-style: none;
+}
+#username.nav-link {
+    text-decoration: none !important;
+}
+
 /* Body */
 
 body {
