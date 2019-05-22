@@ -36,6 +36,14 @@ if(!$membre) {
             <h5>Membre depuis: <?php echo substr($membre->dateCrea,0,10); ?></h5>
         </div>
     </div>
+    <?php
+    if(isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
+        <div class="row justify-content-center">
+            <div class="col-xs-4">
+                <a href="ajouter.php?idm=<?=$id_utilisateur;?>" class="btn btn-primary btn-lg justify-content-center" role="button">Ajouter une recette</a>
+            </div>
+        </div>
+    <?php } ?>
     <hr>
     <?php
     $query_r = "SELECT idRecette, img, chapo, titre, difficulte, tempsPreparation, prix, couleur FROM recettes WHERE membre='$id_utilisateur';";
@@ -56,6 +64,30 @@ if(!$membre) {
                             <strong><i class="fas fa-utensils pt-2"></i> <?php echo $recette->difficulte?> | <i class="far fa-clock"></i> <?php echo $recette->tempsPreparation?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix?></strong>
                         </p>
                         <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
+                        <?php
+                        if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
+                            <br>
+                            <a href="#" data-toggle="modal" data-target="#modifierRecette">Modifier</a> <span>|</span> <a href="#">Supprimer</a>
+                        <?php } ?>
+                        <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
