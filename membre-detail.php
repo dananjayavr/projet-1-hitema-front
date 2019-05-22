@@ -15,11 +15,31 @@ if(!$membre) {
 /*$membre = $result->fetch(PDO::FETCH_OBJ);*/
 
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
     <!--<div class="row">
         <div class="col-sm-12" id="banner">
         </div>
     </div>-->
+    <script>
+        function supprimerRecette(idRecette) {
+            $.ajax({
+                'url' : 'ajax/supprimerRecette.php',
+                'type' : 'POST',
+                'data': {
+                    'idRecette':idRecette
+                }
+            });
+
+            request.done((result) => {
+                console.log(result);
+            });
+
+            request.fail((result) => {
+                console.log(result);
+            });
+        }
+    </script>
     <div class="row mx-auto bio-bg mt-5">
         <div class="col-xs-4 p-5">
             <img src="./assets/photos/gravatars/<?php echo $membre->gravatar; ?>" alt="photo<?php echo $membre->prenom?>" id="bio-pic">
@@ -63,11 +83,11 @@ if(!$membre) {
                             <br>
                             <strong><i class="fas fa-utensils pt-2"></i> <?php echo $recette->difficulte?> | <i class="far fa-clock"></i> <?php echo $recette->tempsPreparation?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix?></strong>
                         </p>
-                        <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
+                        <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg mb-2" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
                         <?php
                         if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
                             <br>
-                            <a href="#" data-toggle="modal" data-target="#modifierRecette">Modifier</a> <span>|</span> <a href="#">Supprimer</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="" data-toggle="modal" data-target="#modifierRecette">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" onclick="supprimerRecette('<?= $recette->idRecette; ?>')" id="supprimer">Supprimer</a>
                         <?php } ?>
                         <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

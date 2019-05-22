@@ -39,7 +39,7 @@
                     <a class="nav-link" href="deconnecter.php">Se déconnecter<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Recettes<span class="sr-only">(Current)</span></a>
+                    <a class="nav-link" href="membre-detail.php?idm=<?=$_SESSION['idMembre']?>">Mes Recettes<span class="sr-only">(Current)</span></a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item active">
@@ -73,9 +73,6 @@
         </ul>
         <?php
         if (isset($_SESSION['login'])) { ?>
-            <li class="nav-item active" id="username">
-                <a class="nav-link" href="membre-detail.php?idm=<?=$_SESSION['idMembre']?>">Bienvenue <?=$_SESSION['prenom']?></a>
-            </li>
         <?php } ?>
         <span class="navbar-text">
             <i class="fab fa-facebook-f p-2"></i>

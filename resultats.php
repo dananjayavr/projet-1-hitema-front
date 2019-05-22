@@ -2,6 +2,11 @@
 
 require_once 'inc/init.php';
 
+if (!isset($_POST['searchTerm'])) {
+    header('Location: index.php');
+    exit();
+}
+
 $sterm = filter_input(INPUT_POST,'searchTerm',FILTER_SANITIZE_STRING);
 $sterm1 = trim($sterm," ");
 

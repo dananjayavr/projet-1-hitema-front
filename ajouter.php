@@ -1,5 +1,6 @@
 <?php
 require 'inc/init.php';
+//require 'inc/helpers.php';
 if (!isset($_SESSION['login'])) {
     header('Location: index.php');
     exit();
@@ -36,6 +37,7 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) {
             </script>
         <?php } else {
             if(move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+                //crop_image($_FILES['image']['tmp_name'],pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION));
                 $uploadOK = true;
             } else {
                 echo <<< _END
@@ -69,9 +71,23 @@ $query = "INSERT INTO recettes (titre,chapo,img,preparation,ingredient,membre,co
 if ($uploadOK) {
     $result = $pdo->query($query);
     if($result) {
-        echo 'INSERT OK.';
+        echo <<<_END
+        <script>
+                $(document).ready(() => {
+                    $('#alertBox').append("<div class='alert alert-success' role='alert'>Votre recette a bien été enregistrée.</div>");
+                });
+         </script>
+_END;
+
     } else {
-        echo 'ERROR.';
+        echo <<<_END
+        <script>
+                $(document).ready(() => {
+                    $('#alertBox').append("<div class='alert alert-warning' role='alert'>Un erreur a été détécté lors de l'enregistrement. Veuillez réessayer plus tard.</div>");
+                });
+        </script>
+_END;
+
     }
 }
 ?>
@@ -93,7 +109,7 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) { ?>
                             <label for="titre">Titre de Recette</label>
                             <input type="text" class="form-control" placeholder="titre de votre recette" id="titre" name="titre" required>
                             <label for="chapeau">Chapeau</label>
-                            <textarea class="form-control" placeholder="Un texte bref pour introduire votre recette" id="chapeau" name="chapeau"></textarea>
+                            <textarea class="form-control" placeholder="Un texte bref pour introduire votre recette" id="chapeau" name="chapeau" maxlength="250"></textarea>
                             <label for="ingredients">Ingrédients</label>
                             <textarea class="form-control" placeholder="la liste des ingrédients" id="ingredients" name="ingredients" rows="6"></textarea>
                             <label for="prepa">Préparation</label>
@@ -108,8 +124,7 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) { ?>
                             </div>
                             <script>
                                 $('#image').on('change',() => {
-                                    let fileName = $('#image').val();
-                                    fileName = $('#image').val().replace('C:\\fakepath\\', " ");
+                                    let fileName = $('#image').val().replace('C:\\fakepath\\', " ");
                                     $('#image').next('.custom-file-label').html(fileName);
                                 });
                             </script>
