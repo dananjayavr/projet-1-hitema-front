@@ -15,12 +15,16 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) {
     $tempsPrepa = filter_input(INPUT_POST, 'tempsPrepa', FILTER_SANITIZE_STRING);
     $difficulte = filter_input(INPUT_POST, 'difficulte', FILTER_SANITIZE_STRING);
     $prix = filter_input(INPUT_POST, 'prix', FILTER_SANITIZE_STRING);
+    $couleur = filter_input(INPUT_POST, 'couleur', FILTER_SANITIZE_STRING);
+    $membre = $_SESSION['idMembre'];
+    $image = "";
 
     $uploadOK = false;
 
     if(!empty($_FILES['image']))
     {
         $path = "assets/photos/recettes/";
+        $image = $_FILES['image']['name'];
         $path = $path . basename( $_FILES['image']['name']);
         if ($_FILES['image']['size'] > 500000) { ?>
             <script>
@@ -29,7 +33,6 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) {
                         "  Votre image est trop grand. Veuillez choisir une autre image.\n" +
                         "</div>");
                 });
-        </script>
             </script>
         <?php } else {
             if(move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
@@ -46,13 +49,36 @@ _END;
             }
         }
     }
+}
+$prepaSplit = preg_split('/\r\n|[\r\n]/', $prepa);
+$finalStringPrepa = "<ol>";
+for ($i = 0; $i<count($prepaSplit);$i++) {
+    $finalStringPrepa .= '<li>'.$prepaSplit[$i].'</li>';
+}
+$finalStringPrepa .= '</ol>';
 
-    $image = $_FILES['image']['name'];
+$ingredientsSplit = preg_split('/\r\n|[\r\n]/', $ingredients);
+$finalStringIngredients = "<ul>";
+for ($i = 0; $i<count($ingredientsSplit);$i++) {
+    $finalStringIngredients .= '<li>'.$ingredientsSplit[$i].'</li>';
+}
+$finalStringIngredients .= '</ul>';
+
+$query = "INSERT INTO recettes (titre,chapo,img,preparation,ingredient,membre,couleur,categorie,tempsCuisson,tempsPreparation,difficulte,prix) VALUES (\"$titre\",\"$chapo\",\"$image\",\"$finalStringPrepa\",\"$finalStringIngredients\",$membre,\"$couleur\",$categorie,\"$tempsCuisson\",\"$tempsPrepa\",\"$difficulte\",\"$prix\")";
+
+if ($uploadOK) {
+    $result = $pdo->query($query);
+    if($result) {
+        echo 'INSERT OK.';
+    } else {
+        echo 'ERROR.';
+    }
 }
 ?>
 
+
 <?php
-if (isset($_SESSION['login']) && isset($_GET['idm'])) { ?>
+if (isset($_SESSION['login']) and isset($_GET['idm'])) { ?>
     <div class="container">
         <div class="col-12 text-center pt-5">
             <div id="alertBox"></div>
@@ -63,9 +89,9 @@ if (isset($_SESSION['login']) && isset($_GET['idm'])) { ?>
             <div class="col-12">
                 <form action="ajouter.php?idm=<?= $_GET['idm']?>" method="POST" enctype="multipart/form-data">
                     <div class="form-row">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-xs-12">
                             <label for="titre">Titre de Recette</label>
-                            <input type="text" class="form-control" placeholder="titre de votre recette" id="titre" name="titre">
+                            <input type="text" class="form-control" placeholder="titre de votre recette" id="titre" name="titre" required>
                             <label for="chapeau">Chapeau</label>
                             <textarea class="form-control" placeholder="Un texte bref pour introduire votre recette" id="chapeau" name="chapeau"></textarea>
                             <label for="ingredients">Ingrédients</label>
@@ -74,7 +100,7 @@ if (isset($_SESSION['login']) && isset($_GET['idm'])) { ?>
                             <textarea class="form-control" placeholder="les étapes de préparation" id="prepa" name="prepa" rows="6"></textarea>
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-xs-12">
                             <label for="image">Image de votre recette</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="image" name="image" accept="image/png, image/jpeg">
@@ -110,10 +136,18 @@ if (isset($_SESSION['login']) && isset($_GET['idm'])) { ?>
                             </div>
                             <label for="prix">Prix</label>
                             <div>
-                                <select class="custom-select custom-select-md mb-3">
+                                <select class="custom-select custom-select-md mb-3" id="prix" name="prix">
                                     <option value="Pas cher">Pas Cher</option>
                                     <option value="Abordable">Abordable</option>
                                     <option value="Cher">Cher</option>
+                                </select>
+                            </div>
+                            <label for="couleur">Couleur</label>
+                            <div>
+                                <select class="custom-select custom-select-md mb-3" id="couleur" name="couleur">
+                                    <option value="fushia">Fushia</option>
+                                    <option value="bleuClair">Bleu Clair</option>
+                                    <option value="vertClair">Vert Clair</option>
                                 </select>
                             </div>
                         </div>
