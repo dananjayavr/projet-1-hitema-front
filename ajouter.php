@@ -137,10 +137,12 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) { ?>
                                     <option value="3">Fruit</option>
                                 </select>
                             </div>
+
                             <label for="tempsCuisson">Temps du Cuisson</label>
                             <input type="text" name="tempsCuisson" id="tempsCuisson" class="form-control" placeholder="Ex. 1h 30 min">
                             <label for="tempsCuisson">Temps Préparation</label>
                             <input type="text" name="tempsPrepa" id="tempsPrepa" class="form-control" placeholder="Ex. 15 min">
+
                             <label for="difficulte">Niveau de Difficulté</label>
                             <div>
                                 <select class="custom-select custom-select-md mb-3" name="difficulte" id="difficulte">
