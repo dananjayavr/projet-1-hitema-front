@@ -45,7 +45,7 @@ if(!$membre) {
     <?php } ?>
     <hr>
     <?php
-    $query_r = "SELECT idRecette, img, chapo, titre, difficulte, tempsPreparation, prix, couleur FROM recettes WHERE membre='$id_utilisateur';";
+    $query_r = "SELECT idRecette, img, chapo, titre, difficulte, tempsPreparation, tempsCuisson, prix, couleur FROM recettes WHERE membre='$id_utilisateur';";
     $result = $pdo->query($query_r);
     //$recettes = $result->fetch(PDO::FETCH_OBJ);
     ?>
@@ -60,19 +60,21 @@ if(!$membre) {
                             <p class="card-text">
                                 <?php echo $recette->chapo; ?>
                                 <br>
-                                <strong><i class="fas fa-utensils pt-2"></i> <?php echo $recette->difficulte?> | <i class="far fa-clock"></i> <?php echo $recette->tempsPreparation?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix?></strong>
+                                <strong><i class="fas fa-utensils pt-2"></i> <?php echo $recette->difficulte?> | <i class="far fa-clock"></i> <?php echo $recette->tempsCuisson?> | <i class="fas fa-euro-sign"></i> <?php echo $recette->prix?></strong>
                             </p>
                             <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg mb-2" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
                             <?php
                             if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
                                 <br>
-                                <a class="btn btn-outline-secondary btn-sm" href="" data-toggle="modal" data-target="#modifierRecette" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" data-toggle="modal" data-target="#supprimerRecette">Supprimer</a>
+                                <a class="btn btn-outline-secondary btn-sm" href="" data-toggle="modal" data-target="#modifierRecette" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" onclick="supprimerRecette(<?=$recette->idRecette;?>)">Supprimer</a>
                             <?php } ?>
                             <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
+
                                             <h5 class="modal-title" id="exampleModalLabel">Modifier Recette</h5>
+                                            <div id="alertBox"></div>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -82,26 +84,7 @@ if(!$membre) {
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Sauvegarder</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="supprimerRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Supprimer Recette</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Vous êtes sûr de vouloir supprimer cette recette?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-danger" id="supprimer" onclick="supprimerRecette(<?= $recette->idRecette; ?>)" data-dismiss="modal">Supprimer</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sauvegarderRecette(<?= $recette->idRecette; ?>)">Sauvegarder</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,8 +133,8 @@ if ($result->rowCount()==0) { ?>
                 'idRecette':idRecette
             }
         });
-        request.done(() => {
-
+        request.done((result) => {
+            console.log(result);
         });
         request.fail((result) => {
             console.log(result);
@@ -162,10 +145,10 @@ if ($result->rowCount()==0) { ?>
 
     function modifierRecette(idRecette) {
         let request = $.ajax({
-            'url' : 'ajax/modifierRecette.php',
-            'type' : 'POST',
-            'data' : {
-                'idRecette' : idRecette
+            'url': 'ajax/modifierRecette.php',
+            'type': 'POST',
+            'data': {
+                'idRecette': idRecette
             }
         });
 
@@ -177,4 +160,35 @@ if ($result->rowCount()==0) { ?>
             console.log(result)
         });
     }
+
+    function sauvegarderRecette(idRecette) {
+        let request = $.ajax({
+            'url' : 'ajax/sauvegarderRecette.php',
+            'type' : 'POST',
+            'data' : {
+                'idRecette' : idRecette,
+                'titreRecette' : $('#titreRecette').val(),
+                'chapeauRecette' : $('#chapeauRecette').val(),
+                'ingredientsRecette' : $('#ingredients').val(),
+                'prepaRecette' : $('#prepaRecette').val(),
+                'categorieRecette' : $('#categorieRecette').val(),
+                'tempsCuissonRecette' : $('#recetteTempsCuisson').val(),
+                'tempsPrepaRecette' : $('#recetteTempsPrepa').val(),
+                'difficulteRecette' : $('#recetteDifficulte').val(),
+                'prixRecette' : $('#recettePrix').val()
+            }
+        });
+
+        request.done((result) => {
+            console.log(result)
+        });
+
+        request.fail((result) => {
+            console.log(result)
+        });
+    }
+</script>
+
+<script>
+
 </script>

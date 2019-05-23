@@ -51,7 +51,7 @@ if (!$recette) {
         </div>
     </div>
     <p>
-        <a href="./index.php">Retour</a>
+        <a href="membre-detail.php?idm=<?=$recette->idMembre;?>">Retour</a>
     </p>
 </div>
 <?php include "./inc/footer.php";?>
