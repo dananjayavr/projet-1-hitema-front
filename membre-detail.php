@@ -66,30 +66,30 @@ if(!$membre) {
                             <?php
                             if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
                                 <br>
-                                <a class="btn btn-outline-secondary btn-sm" href="" data-toggle="modal" data-target="#modifierRecette" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" onclick="supprimerRecette(<?=$recette->idRecette;?>)">Supprimer</a>
-                            <?php } ?>
-                            <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-
-                                            <h5 class="modal-title" id="exampleModalLabel">Modifier Recette</h5>
-                                            <div id="alertBox"></div>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="recipeContents"></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sauvegarderRecette(<?= $recette->idRecette; ?>)">Sauvegarder</button>
+                                <a class="btn btn-outline-secondary btn-sm" href="" id="modify" data-toggle="modal" data-target="#modifierRecette" data-id="<?=$recette->idRecette;?>" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" onclick="supprimerRecette(<?=$recette->idRecette;?>)">Supprimer</a>
+                                <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-recetteId="<?=$recette->idRecette;?>">
+                                    <input id="recette_id" name="rid" type="hidden" value="" />
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modifier Recette</h5>
+                                                <div id="alertBox"></div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="recipeContents"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Sauvegarder</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <?php } ?>
                     </div>
                 </div>
             <?php } ?>
@@ -143,6 +143,17 @@ if ($result->rowCount()==0) { ?>
         document.location.reload();
     }
 
+    $(document).ready(function () {
+        var r_id = 0;
+        $('body').on('click', '#modify',function() {
+            document.getElementById("recette_id").value = $(this).attr('data-id');
+            console.log($(this).attr('data-id'));
+            r_id = $(this).attr('data-id');
+        });
+        $('#save').click(() => {
+            sauvegarderRecette(r_id);
+        });
+    });
     function modifierRecette(idRecette) {
         let request = $.ajax({
             'url': 'ajax/modifierRecette.php',
