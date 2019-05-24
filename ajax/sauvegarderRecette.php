@@ -19,12 +19,22 @@ if(!empty($_POST)) {
     $couleurModifie = filter_input(INPUT_POST, 'couleurRecette', FILTER_SANITIZE_STRING);
     $membre = $_SESSION['idMembre'];
 
-    /*$query = "SELECT * FROM recettes WHERE idRecette=".$idRecette;
+    $query = "SELECT * FROM recettes WHERE idRecette=".$idRecette;
     $result = $pdo->query($query);
-    $recette = $result->fetch(PDO::FETCH_OBJ);*/
+    $recette = $result->fetch(PDO::FETCH_OBJ);
 
-    echo 'Titre: '. $titreModifie.'\n';
-    echo 'ID: '.$idRecette.'\n';
+    if($titreModifie!==$recette->titre) {
+        echo $titreModifie . " will be commited to the DB.";
+        $query = "UPDATE recettes SET titre=\"$titreModifie\" WHERE idRecette=$idRecette";
+        $result = $pdo->query($query);
+        if($result) {
+            echo "Update OK.";
+        } else {
+            echo "Update failed.";
+        }
+    } else {
+        echo "No change detected.";
+    }
 }
 
 
