@@ -176,10 +176,10 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) { ?>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
+                    <div class="row mx-auto">
+                        <div class="col-12 text-center">
                             <br>
-                            <input type="submit" value="Sousmettre" class="form-control btn btn-primary btn-lg">
+                            <input type="submit" value="Sousmettre" class="form-control btn btn-primary btn-lg w-75 addRecipe">
                         </div>
                     </div>
                 </form>

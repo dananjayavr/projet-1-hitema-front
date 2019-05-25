@@ -55,7 +55,8 @@ if(!empty($_POST)) {
                     <input type="password" class="form-control" id="mp" name="mp" placeholder="mot de passe" minlength="8" required>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary btn-block btn-sm" id="inscrire">Se Connecter</button>
+                <button type="submit" class="btn btn-primary btn-block btn-sm addRecipe" id="inscrire">Se Connecter</button>
+                <small style="text-align: center; display: block;" class="pt-1 mb-5"><strong>Vous n'avez pas de compte? S'inscrire <a href="inscrire.php">ici!</a></strong></small>
             </form>
         </div>
         <div class="col"></div>

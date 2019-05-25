@@ -90,7 +90,7 @@ _END;
     if(isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
         <div class="row justify-content-center">
             <div class="col-xs-4">
-                <a href="ajouter.php?idm=<?=$id_utilisateur;?>" class="btn btn-primary btn-lg justify-content-center" role="button">Ajouter une recette</a>
+                <a href="ajouter.php?idm=<?=$id_utilisateur;?>" class="btn btn-primary btn-lg justify-content-center addRecipe" role="button">Ajouter une recette</a>
             </div>
         </div>
     <?php } ?>
@@ -136,7 +136,7 @@ _END;
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Sauvegarder</button>
+                                            <button type="button" class="btn btn-primary addRecipe" data-dismiss="modal" id="save">Sauvegarder</button>
                                         </div>
                                     </div>
                                 </div>

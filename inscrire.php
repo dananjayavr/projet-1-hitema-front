@@ -77,7 +77,7 @@ if(!empty($_POST)) {
                 </div>
                 <br>
                 <div class="alertArea"></div>
-                <button type="submit" class="btn btn-primary btn-block btn-sm mb-5" id="inscrire">S'inscrire</button>
+                <button type="submit" class="btn btn-primary btn-block btn-sm mb-5 addRecipe" id="inscrire">S'inscrire</button>
             </form>
         </div>
         <div class="col"></div>

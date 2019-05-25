@@ -234,3 +234,10 @@ body {
 #titreInscription {
     font-size: 2em;
 }
+
+/* Page d'ajour recette */
+.addRecipe {
+    /*background: #4258f4;*/
+    background: #2EE59D;
+    border: white;
+}
