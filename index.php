@@ -63,9 +63,19 @@ $recettes = $result->fetch(PDO::FETCH_OBJ);
         <div class="col-sm-12 pb-5">
             <h1>Partager une recette</h1>
         </div>
+        <?php if (isset($_SESSION['login']) and isset($_SESSION['idMembre'])) {?>
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Allons-y!</button>
+            <button class="btn btn-primary btn-lg btn-block">
+                <a href="ajouter.php?idm=<?=$_SESSION['idMembre'];?>">Allons-y!</a>
+            </button>
         </div>
+        <?php } else { ?>
+        <div class="col-sm-12">
+            <button class="btn btn-primary btn-lg btn-block">
+                <a href="inscrire.php">Allons-y!</a>
+            </button>
+        </div>
+        <?php } ?>
     </div>
 </div>
 

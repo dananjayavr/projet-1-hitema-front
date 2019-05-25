@@ -11,8 +11,10 @@ if(!empty($_POST)) {
 
     if($result) {
         while($recette = $result->fetch(PDO::FETCH_ASSOC)) {
+            $ingredientsStripped = strip_tags($recette['ingredient']);
+            $prepaStripped = strip_tags($recette['preparation']);
             echo <<<_END
-                <form enctype="multipart/form-data" method="post" action=""> 
+                <form method="post" action=""> 
                     <div class="form-group">
                         <label for="titreRecette">Titre</label>
                         <input type="text" class="form-control" value="{$recette['titre']}" id="titreRecette" name="titreRecette">
@@ -23,12 +25,12 @@ if(!empty($_POST)) {
                     </div>
                     
                     <div class="form-group">
-                        <label for="ingredientsRecette">Ingrédients (veuillez entrer le texte entre les balises)</label>
-                        <textarea class="form-control" name="ingredientsRecette" id="ingredientsRecette" rows="4">{$recette['ingredient']}</textarea>
+                        <label for="ingredientsRecette">Ingrédients (veuillez entrer un ingrédient par ligne)</label>
+                        <textarea class="form-control" name="ingredientsRecette" id="ingredientsRecette" rows="4">{$ingredientsStripped}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="prepaRecette">Préparation (veuillez entrer le texte entre les balises)</label>
-                        <textarea class="form-control" name="prepaRecette" id="prepaRecette" rows="4">{$recette['preparation']}</textarea>
+                        <label for="prepaRecette">Préparation (veuillez entrer une étape par ligne)</label>
+                        <textarea class="form-control" name="prepaRecette" id="prepaRecette" rows="4">{$prepaStripped}</textarea>
                     </div>
                     <label for="couleurRecette">Couleur</label>
                     <div>
@@ -45,13 +47,13 @@ if(!empty($_POST)) {
                             <option value="1">Viande</option>
                             <option value="2">Légume</option>
                             <option value="3">Poisson</option>
-                            <option value="3">Fruit</option>
+                            <option value="4">Fruit</option>
                         </select>
                     </div>
                     
                     <label for="tempsCuisson">Temps du Cuisson</label>
                     <input type="text" name="recetteTempsCuisson" id="recetteTempsCuisson" class="form-control" value="{$recette['tempsCuisson']}">
-                    <label for="tempsCuisson">Temps Préparation</label>
+                    <label for="recetteTempsPrepa">Temps Préparation</label>
                     <input type="text" name="recetteTempsPrepa" id="recetteTempsPrepa" class="form-control" value="{$recette['tempsPreparation']}">
                     
                     <label for="recettedifficulte">Niveau de Difficulté</label>

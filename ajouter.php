@@ -66,6 +66,7 @@ for ($i = 0; $i<count($ingredientsSplit);$i++) {
 }
 $finalStringIngredients .= '</ul>';
 
+
 $query = "INSERT INTO recettes (titre,chapo,img,preparation,ingredient,membre,couleur,categorie,tempsCuisson,tempsPreparation,difficulte,prix) VALUES (\"$titre\",\"$chapo\",\"$image\",\"$finalStringPrepa\",\"$finalStringIngredients\",$membre,\"$couleur\",$categorie,\"$tempsCuisson\",\"$tempsPrepa\",\"$difficulte\",\"$prix\")";
 
 if ($uploadOK) {

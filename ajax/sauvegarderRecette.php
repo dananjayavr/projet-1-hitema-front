@@ -13,7 +13,6 @@ if(!empty($_POST)) {
     $prepaModifie = filter_input(INPUT_POST, 'prepaRecette', FILTER_SANITIZE_STRING);
     $categorieModifie = filter_input(INPUT_POST, 'categorieRecette', FILTER_SANITIZE_STRING);
     $tempsCuissonModifie = filter_input(INPUT_POST, 'tempsCuissonRecette', FILTER_SANITIZE_STRING);
-    $tempsPrepaModifie = filter_input(INPUT_POST, 'tempsPrepaRecette', FILTER_SANITIZE_STRING);
     $difficulteModifie = filter_input(INPUT_POST, 'difficulteRecette', FILTER_SANITIZE_STRING);
     $prixModifie = filter_input(INPUT_POST, 'prixRecette', FILTER_SANITIZE_STRING);
     $couleurModifie = filter_input(INPUT_POST, 'couleurRecette', FILTER_SANITIZE_STRING);
@@ -23,18 +22,45 @@ if(!empty($_POST)) {
     $result = $pdo->query($query);
     $recette = $result->fetch(PDO::FETCH_OBJ);
 
-    if($titreModifie!==$recette->titre) {
-        echo $titreModifie . " will be commited to the DB.";
-        $query = "UPDATE recettes SET titre=\"$titreModifie\" WHERE idRecette=$idRecette";
-        $result = $pdo->query($query);
-        if($result) {
-            echo "Update OK.";
-        } else {
-            echo "Update failed.";
-        }
-    } else {
-        echo "No change detected.";
+    $x = filter_input(INPUT_POST,'tempsPrepaRecette',FILTER_SANITIZE_STRING);
+    //echo $x;
+
+    $ingredientsSplit = preg_split('/\r\n|[\r\n]/', $ingredientsModifie);
+    $finalStringIngredients = "<ul>";
+    for ($i = 0; $i<count($ingredientsSplit);$i++) {
+        $finalStringIngredients .= '<li>'.$ingredientsSplit[$i].'</li>';
     }
+    $finalStringIngredients .= '</ul>';
+
+    $prepaSplit = preg_split('/\r\n|[\r\n]/', $prepaModifie);
+    $finalStringPrepa = "<ol>";
+    for ($i = 0; $i<count($prepaSplit);$i++) {
+        $finalStringPrepa .= '<li>'.$prepaSplit[$i].'</li>';
+    }
+    $finalStringPrepa .= '</ol>';
+
+    if($titreModifie!==$recette->titre) {
+        $pdo->query("UPDATE recettes SET titre=\"$titreModifie\" WHERE idRecette=$idRecette");
+    } else if($chapoModifie!==$recette->chapo) {
+        $pdo->query("UPDATE recettes SET chapo=\"$chapoModifie\" WHERE idRecette=$idRecette");
+    } else if($finalStringIngredients!==$recette->ingredient) {
+        $pdo->query("UPDATE recettes SET ingredient=\"$finalStringIngredients\" WHERE idRecette=$idRecette");
+    } else if($difficulteModifie!==$recette->difficulte) {
+        $pdo->query("UPDATE recettes SET difficulte=\"$difficulteModifie\" WHERE idRecette=$idRecette");
+    } else if($tempsCuissonModifie!==$recette->tempsCuisson) {
+        $pdo->query("UPDATE recettes SET tempsCuisson=\"$tempsCuissonModifie\" WHERE idRecette=$idRecette");
+    } else if($prixModifie!==$recette->prix) {
+        $pdo->query("UPDATE recettes SET prix=\"$prixModifie\" WHERE idRecette=$idRecette");
+    } else if($couleurModifie!==$recette->couleur) {
+        $pdo->query("UPDATE recettes SET couleur=\"$couleurModifie\" WHERE idRecette=$idRecette");
+    } else if($recette->tempsPreparation!==$x) {
+        $pdo->query("UPDATE recettes SET tempsPreparation=\"$x\" WHERE idRecette=$idRecette");
+    } else if($categorieModifie!==$recette->categorie) {
+        $pdo->query("UPDATE recettes SET categorie=\"$categorieModifie\" WHERE idRecette=$idRecette");
+    } else if($finalStringPrepa!==$recette->preparation) {
+        $pdo->query("UPDATE recettes SET preparation=\"$finalStringPrepa\" WHERE idRecette=$idRecette");
+    }
+
 }
 
 

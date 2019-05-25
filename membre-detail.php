@@ -22,6 +22,57 @@ if(!$membre) {
     <div class="row mx-auto bio-bg mt-5">
         <div class="col-xs-4 p-5">
             <img src="./assets/photos/gravatars/<?php echo $membre->gravatar; ?>" alt="photo<?php echo $membre->prenom?>" id="bio-pic">
+            <?php if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
+                <br>
+                <div id="alertBox"></div>
+                <br>
+                <form action="membre-detail.php?idm=<?=$id_utilisateur?>" method="post" enctype="multipart/form-data">
+                    <div class="custom-file row">
+                        <div class="col-xs-12 col-lg-6">
+                            <small class="custom-file-label for="image">Changer Avatar</small>
+                            <input type="file" class="custom-file-input form-control input-sm" id="image" name="image" accept="image/png, image/jpeg" onchange="this.form.submit()">
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    $('#image').on('change',() => {
+                        let fileName = $('#image').val().replace('C:\\fakepath\\', " ");
+                        $('#image').next('.custom-file-label').html(fileName);
+                    });
+                </script>
+            <?php }?>
+            <?php
+            if(!empty($_FILES['image'])) {
+                $image = $_FILES['image']['name'];
+                $imageName = md5($image).".".pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+                $path = "assets/photos/gravatars/";
+                //$path = $path . basename($_FILES['image']['name']);
+                $path = $path.$imageName;
+                if ($_FILES['image']['size'] > 200000) { ?>
+                    <script>
+                        $(document).ready(() => {
+                            $('#alertBox').append("<div class=\"alert alert-danger\" role=\"alert\">\n" +
+                                "  Votre image est trop grand. Veuillez choisir une autre image.\n" +
+                                "</div>");
+                        });
+                    </script>
+                <?php } else {
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+                        //crop_image($_FILES['image']['tmp_name'],pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION));
+                        $uploadOK = true;
+                        $query_p = "UPDATE membres SET gravatar=\"$imageName\" WHERE idMembre=$id_utilisateur";
+                        $pdo->query($query_p);
+                    } else {
+                        echo <<< _END
+                    <script>
+                    $(document).ready(() => {
+                        $('#alertBox').append("<div class='alert alert-danger' role='alert'>Un erreur a été détécté. Veuillez vérifier votre image.</div>");
+                    });
+                    </script>
+_END;
+                    }
+                }
+            } ?>
         </div>
     </div>
     <!--<div class="row justify-content-center">
@@ -65,66 +116,73 @@ if(!$membre) {
                             <a href="recette-detail.php?idr=<?php echo $recette->idRecette;?>" class="btn btn-primary btn-lg mb-2" role="button" style="background: <?php echo $couleurs[$recette->couleur];?>; border-color: white;">Je cuisine!</a>
                             <?php
                             if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
-                                <br>
-                                <a class="btn btn-outline-secondary btn-sm" href="" id="modify" data-toggle="modal" data-target="#modifierRecette" data-id="<?=$recette->idRecette;?>" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" id="deleteRecipe" data-toggle="modal" data-target="#supprimerRecette" data-id="<?=$recette->idRecette;?>">Supprimer</a>
-
-                                <!-- MODAL MODIFIER RECETTE -->
-                                <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <input id="recette_id" name="rid" type="hidden" value="" />
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modifier Recette</h5>
-                                                <div id="alertBox"></div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div id="recipeContents"></div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Sauvegarder</button>
-                                            </div>
+                            <br>
+                            <a class="btn btn-outline-secondary btn-sm" href="" id="modify" data-toggle="modal" data-target="#modifierRecette" data-id="<?=$recette->idRecette;?>" onclick="modifierRecette(<?= $recette->idRecette; ?>)">Modifier</a> <span>|</span> <a class="btn btn-outline-danger btn-sm" href="" value="submit" id="deleteRecipe" data-toggle="modal" data-target="#supprimerRecette" data-id="<?=$recette->idRecette;?>">Supprimer</a>
+                            <?php } ?>
+                            <!-- MODAL MODIFIER RECETTE -->
+                            <div class="modal fade" id="modifierRecette" tabindex="-1" role="dialog" aria-hidden="true">
+                                <input id="recette_id" name="rid" type="hidden" value="" />
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modifier Recette</h5>
+                                            <div id="alertBox"></div>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- MODAL SUPPRIMER CONFIRMATION -->
-                                <div class="modal fade" id="supprimerRecette" aria-hidden="true" tabindex="-1" role="dialog">
-                                    <input id="recette_id" name="rid" type="hidden" value="" />
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Supprimer Recette</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Vous êtes sûr de vouloir supprimer cette recette?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <button type="button" class="btn btn-danger" id="delete">Supprimer</button>
-                                            </div>
+                                        <div class="modal-body">
+                                            <div id="recipeContents"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Sauvegarder</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php } ?>
+
+                            <!-- MODAL SUPPRIMER CONFIRMATION -->
+                            <div class="modal fade" id="supprimerRecette" aria-hidden="true" tabindex="-1" role="dialog">
+                                <input id="recette_id" name="rid" type="hidden" value="" />
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Supprimer Recette</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Vous êtes sûr de vouloir supprimer cette recette?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                            <button type="button" class="btn btn-danger" id="delete">Supprimer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php } ?>
         </div>
     </div>
+    <?php if (isset($_SESSION['login']) and $_SESSION['idMembre'] == $id_utilisateur) { ?>
+        <hr>
+        <div class="pb-2 text-center">
+            <small>
+                <a href="#" id="supprimerCompte">Supprimer Mon Compte</a> | <a href="#" id="telechargerDonnees">Télécharger Mes Données</a>
+            </small>
+        </div>
+    <?php } ?>
 </div>
 
 
 <?php
 if ($result->rowCount()==0) { ?>
-    <nav class="navbar navbar-light fixed-bottom bg-light" id="footer">
+    <!--<nav class="navbar navbar-light fixed-bottom bg-light" id="footer">
     <span class="navbar-text mx-auto">
         <a href="#">Recettes</a> | <a href="#">Menus</a> | <a href="#">Desserts</a> | <a href="#">Minceur</a> | <a
                 href="#">Atelier</a> | <a href="#">Contact</a>
@@ -137,9 +195,8 @@ if ($result->rowCount()==0) { ?>
         </div>
     </span>
     </nav>
-
     </body>
-    </html>
+    </html>-->
 <?php } else {
     require 'inc/footer.php';
 }?>
@@ -218,13 +275,17 @@ if ($result->rowCount()==0) { ?>
                 'idRecette' : idRecette,
                 'titreRecette' : $('#titreRecette').val(),
                 'chapeauRecette' : $('#chapeauRecette').val(),
-                'ingredientsRecette' : $('#ingredients').val(),
+                'ingredientsRecette' : $('#ingredientsRecette').val(),
                 'prepaRecette' : $('#prepaRecette').val(),
                 'categorieRecette' : $('#categorieRecette').val(),
                 'tempsCuissonRecette' : $('#recetteTempsCuisson').val(),
                 'tempsPrepaRecette' : $('#recetteTempsPrepa').val(),
                 'difficulteRecette' : $('#recetteDifficulte').val(),
-                'prixRecette' : $('#recettePrix').val()
+                'prixRecette' : $('#recettePrix').val(),
+                'couleurRecette' : $('#couleurRecette').val()
+            },
+            success: function(){
+                window.location.reload();
             }
         });
 
@@ -236,8 +297,4 @@ if ($result->rowCount()==0) { ?>
             console.log(result)
         });
     }
-</script>
-
-<script>
-
 </script>

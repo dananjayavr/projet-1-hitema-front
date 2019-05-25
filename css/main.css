@@ -158,6 +158,10 @@ body {
     transform: translate(0, -10px);
 }
 
+#partage a {
+    color: white;
+}
+
 /******************************************************************************************************/
 /* Page Recette */
 .titre-recette {

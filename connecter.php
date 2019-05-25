@@ -1,7 +1,7 @@
 <?php
 require_once 'inc/init.php';
-if (isset($_SESSION['login'])) {
-    header('Location: index.php');
+if (isset($_SESSION['login']) and $_SESSION['idMembre']) {
+    header('Location: membre-detail.php?idm='.$_SESSION['idMembre']);
     exit();
 }
 ?>
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
         $_SESSION['prenom'] = $user->prenom;
         $_SESSION['nom'] = $user->nom;
 
-        header('Location: index.php');
+        header('Location: membre-detail.php?idm='.$_SESSION['idMembre']);
     } else { ?>
         <script>
             $(document).ready(() => {
