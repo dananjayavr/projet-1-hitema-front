@@ -67,3 +67,30 @@ sur un serveur web doit être vérifiée avec par exemple l’utilisation des fo
   - soit en utilisant votre dépôt git
 
    - soit en utilisant une méthode reposant sur un protocole sécurisé
+   
+ Phase 2
+-----------
+
+BRAVO ! Cooking a validé votre nouveau design et la maquette du site que vous avez présenté.
+Maintenant il faut avancer vite car la date de mise en production approche et il faut que Cooking puisse gérer les recettes et ses membres.
+   
+   **Il vous est donc demandé de** :
+   - Réalisez le back-office de la page recette (insertion, mise à jour, effacement)
+   avec upload d’image.
+   - Protégez l'accès du back-office par un login et mot de passe en utilisant password_hash dans la table membre.
+   - L’inscription d’un membre est possible depuis le site et un membre doit pouvoir modifier son profil (informations, photo, …), supprimer son compte et dans un contexte RGPD un membre doit pouvoir exporter les données le concernant (traces
+   si existantes, recettes, …) une piste pour cela est l’export de données dans un fichier CSV.
+   - le back-office permet aux administrateur de gérer les membres (blocage, modification,
+   suppression, …)
+   - le back-office permet aux administrateus de gérer les recettes (vues, modification,
+   suppression, modération, etc ...)
+   - l’utilisation de requêtes ajax est un plus pour la gestion du back-office
+   - il est possible de modifier la structure de la BDD afin de prendre en compte les nouvelles fonctionnalités du back-office.
+   - Il faut également penser à effectuer la mise à jour des anciens mots de passe en utilisant la nouvelle méthode de cryptographie.
+   
+   **Résultats à fournir** :
+   
+   1. les maquettes du nouveau site
+   2. les pages au format html (web statique adaptable)
+   3. les pages au format php (web dynamique)
+   
