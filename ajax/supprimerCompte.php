@@ -1,15 +1,17 @@
 <?php
+session_start();
 require '../inc/login.php';
 
 $pdo = new PDO('mysql:host='.$hn.';charset=utf8;dbname='.$db,$un,$pw,
     array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 if(!empty($_POST)) {
-    $idRecette = filter_input(INPUT_POST,'idRecette',FILTER_SANITIZE_STRING);
-    $result = $pdo->query("DELETE FROM recettes WHERE idRecette=".$idRecette);
+    $idUtilisateur= filter_input(INPUT_POST,'idUtilisateur',FILTER_SANITIZE_STRING);
+    $result = $pdo->query("DELETE FROM membres WHERE idMembre=".$idUtilisateur);
     if($result) {
         //echo json_encode($result);
-        header('Location: membre-detail.php?idm='.$_SESSION['idMembre']);
+        header('Location: index.php');
+        session_destroy();
         exit();
     } else {
         var_dump($result);

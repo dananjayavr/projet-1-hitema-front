@@ -173,9 +173,49 @@ _END;
         <hr>
         <div class="pb-2 text-center">
             <small>
-                <a href="#" id="supprimerCompte">Supprimer Mon Compte</a> | <a href="#" id="telechargerDonnees">Télécharger Mes Données</a>
+                <a href="#" id="supprimerUtilisateur" data-toggle="modal" data-target="#supprimerCompte">Supprimer Mon Compte</a> | <a href="#" id="telechargerDonnees" data-toggle="modal" data-target="#telechargementDonnees" onclick="telechargerDonnees(<?=$_SESSION['idMembre'];?>)">Télécharger Mes Données</a>
             </small>
         </div>
+        <!-- MODAL SUPPRIMER COMPTE -->
+        <div class="modal fade" id="supprimerCompte" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Supprimer Compte Utilisateur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Attention! Toutes vos données seront supprimées. Pensez à télécharger vos donneés avant la suppression du compte.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-danger" id="delete" onclick="supprimerCompte(<?=$_SESSION['idMembre'];?>)">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="telechargementDonnees" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Télécharger vos données</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Vous pouvez désormais télécharger toutes les traces vous concernant stockées sur notre site.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" href="" id="telecharger" download="">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <?php } ?>
 </div>
 
@@ -295,6 +335,49 @@ if ($result->rowCount()==0) { ?>
 
         request.fail((result) => {
             console.log(result)
+        });
+    }
+
+    function supprimerCompte(idUtilisateur) {
+        let request = $.ajax({
+            'url' : 'ajax/supprimerCompte.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idUtilisateur
+            },
+            success: function(){
+                window.location.replace('index.php');
+            }
+        });
+
+        request.done((result) => {
+            console.log(result);
+        });
+
+        request.fail((result) => {
+            console.log(result);
+        });
+    }
+
+    function telechargerDonnees(idUtilisateur) {
+        let request = $.ajax({
+            'url' : 'ajax/telechargerDonnees.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idUtilisateur
+            }
+        });
+
+        request.done((result) => {
+            console.log(result);
+            //$('#telecharger').attr("href",result);
+            $('#telecharger').click(() => {
+                window.location = result;
+            })
+        });
+
+        request.fail((result) => {
+            console.log(result);
         });
     }
 </script>

@@ -18,7 +18,7 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) {
     $prix = filter_input(INPUT_POST, 'prix', FILTER_SANITIZE_STRING);
     $couleur = filter_input(INPUT_POST, 'couleur', FILTER_SANITIZE_STRING);
     $membre = $_SESSION['idMembre'];
-    $image = "";
+    $imageName = "";
 
     $uploadOK = false;
 
@@ -26,7 +26,13 @@ if (isset($_SESSION['login']) and isset($_GET['idm'])) {
     {
         $path = "assets/photos/recettes/";
         $image = $_FILES['image']['name'];
-        $path = $path . basename( $_FILES['image']['name']);
+        //$path = $path . basename( $_FILES['image']['name']);
+
+        $imageName = md5(uniqid($image)).".".pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+        //$path = $path . basename($_FILES['image']['name']);
+        $path = $path.$imageName;
+
+
         if ($_FILES['image']['size'] > 500000) { ?>
             <script>
                 $(document).ready(() => {
@@ -67,7 +73,7 @@ for ($i = 0; $i<count($ingredientsSplit);$i++) {
 $finalStringIngredients .= '</ul>';
 
 
-$query = "INSERT INTO recettes (titre,chapo,img,preparation,ingredient,membre,couleur,categorie,tempsCuisson,tempsPreparation,difficulte,prix) VALUES (\"$titre\",\"$chapo\",\"$image\",\"$finalStringPrepa\",\"$finalStringIngredients\",$membre,\"$couleur\",$categorie,\"$tempsCuisson\",\"$tempsPrepa\",\"$difficulte\",\"$prix\")";
+$query = "INSERT INTO recettes (titre,chapo,img,preparation,ingredient,membre,couleur,categorie,tempsCuisson,tempsPreparation,difficulte,prix) VALUES (\"$titre\",\"$chapo\",\"$imageName\",\"$finalStringPrepa\",\"$finalStringIngredients\",$membre,\"$couleur\",$categorie,\"$tempsCuisson\",\"$tempsPrepa\",\"$difficulte\",\"$prix\")";
 
 if ($uploadOK) {
     $result = $pdo->query($query);
