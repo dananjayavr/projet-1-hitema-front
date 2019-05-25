@@ -44,7 +44,7 @@ if(!$membre) {
             <?php
             if(!empty($_FILES['image'])) {
                 $image = $_FILES['image']['name'];
-                $imageName = md5($image).".".pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+                $imageName = md5(uniqid($image)).".".pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
                 $path = "assets/photos/gravatars/";
                 //$path = $path . basename($_FILES['image']['name']);
                 $path = $path.$imageName;
