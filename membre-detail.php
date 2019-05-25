@@ -210,7 +210,7 @@ _END;
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary" href="" id="telecharger" download="">Télécharger</button>
+                        <button type="button" class="btn btn-primary addRecipe" href="" id="telecharger" download="">Télécharger</button>
                     </div>
                 </div>
             </div>
