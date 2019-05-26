@@ -173,7 +173,7 @@ _END;
         <hr>
         <div class="pb-2 text-center">
             <small>
-                <a href="#" id="supprimerUtilisateur" data-toggle="modal" data-target="#supprimerCompte">Supprimer Mon Compte</a> | <a href="#" id="telechargerDonnees" data-toggle="modal" data-target="#telechargementDonnees" onclick="telechargerDonnees(<?=$_SESSION['idMembre'];?>)">Télécharger Mes Données</a>
+                <a href="#" id="modifierUtilisateur" data-toggle="modal" data-target="#modificationUtilisateur" onclick="modifierUtilisateur(<?=$_SESSION['idMembre'];?>)">Modifier Mes Informations</a> | <a href="#" id="supprimerUtilisateur" data-toggle="modal" data-target="#supprimerCompte">Supprimer Mon Compte</a> | <a href="#" id="telechargerDonnees" data-toggle="modal" data-target="#telechargementDonnees" onclick="telechargerDonnees(<?=$_SESSION['idMembre'];?>)">Télécharger Mes Données</a>
             </small>
         </div>
         <!-- MODAL SUPPRIMER COMPTE -->
@@ -196,6 +196,8 @@ _END;
                 </div>
             </div>
         </div>
+
+        <!-- Modal Téléchargement Données -->
         <div class="modal fade" id="telechargementDonnees" aria-hidden="true" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -211,6 +213,27 @@ _END;
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         <button type="button" class="btn btn-primary addRecipe" href="" id="telecharger" download="">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Modifier Utilisateur -->
+        <div class="modal fade" id="modificationUtilisateur" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modifier vos informations</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="contentArea"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary addRecipe" id="modifierUser" onclick="sauvegarderUtilsateur(<?=$_SESSION['idMembre'];?>)">Sauvegarder</button>
                     </div>
                 </div>
             </div>
@@ -379,5 +402,47 @@ if ($result->rowCount()==0) { ?>
         request.fail((result) => {
             console.log(result);
         });
+    }
+
+    function modifierUtilisateur(idUtilisateur) {
+        let request = $.ajax({
+            'url': 'ajax/modifierUtilisateur.php',
+            'type': 'POST',
+            'data': {
+                'idUtilisateur': idUtilisateur
+            }
+        });
+
+        request.done((result) => {
+            $('#contentArea').html(result);
+        });
+
+        request.fail((result) => {
+            console.log(result)
+        });
+    }
+
+    function sauvegarderUtilsateur(idUtilisateur) {
+
+        let request = $.ajax({
+            'url' : 'ajax/sauvegarderUtilisateur.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idUtilisateur,
+                'nouveauLogin' : $('#login').val(),
+                'nouveauPrenom' : $('#prenom').val(),
+                'nouveauNom' : $('#nom').val(),
+                'nouveauMP1' : $('#mp1').val(),
+                'nouveauMP2' : $('#mp2').val()
+            }
+        });
+
+        request.done((result) => {
+            $('#alertZone').html(result);
+        });
+
+        request.fail((result) => {
+            console.log(result);
+        })
     }
 </script>

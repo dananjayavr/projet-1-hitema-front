@@ -7,7 +7,8 @@ $pdo = new PDO('mysql:host='.$hn.';charset=utf8;dbname='.$db,$un,$pw,
 
 //echo 'idRecette: ' . $_POST['idRecette'];
 if(!empty($_POST)) {
-    $result = $pdo->query("SELECT * FROM recettes WHERE idRecette=".$_POST['idRecette']);
+    $idRecette = filter_input(INPUT_POST,'idRecette',FILTER_SANITIZE_STRING);
+    $result = $pdo->query("SELECT * FROM recettes WHERE idRecette=".$idRecette);
 
     if($result) {
         while($recette = $result->fetch(PDO::FETCH_ASSOC)) {
