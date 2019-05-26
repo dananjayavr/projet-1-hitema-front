@@ -15,7 +15,8 @@ if(!empty($_POST)) {
             $ingredientsStripped = strip_tags($recette['ingredient']);
             $prepaStripped = strip_tags($recette['preparation']);
             echo <<<_END
-                <form method="post" action=""> 
+                <form method="post" action="">
+                    <div id="alertBoxRecette"></div> 
                     <div class="form-group">
                         <label for="titreRecette">Titre</label>
                         <input type="text" class="form-control" value="{$recette['titre']}" id="titreRecette" name="titreRecette">

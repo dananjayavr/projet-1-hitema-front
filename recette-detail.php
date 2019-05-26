@@ -12,6 +12,7 @@ if (!$recette) {
     header( 'Location: 404.php' ) ;
     exit;
 }
+//$pdo->query("UPDATE recettes SET vues = vues+1 WHERE idRecette=$id_recette");
 ?>
 <div class="container">
     <div class="row mx-auto pt-5">

@@ -83,7 +83,7 @@ _END;
     <div class="row justify-content-center">
         <div class="col-xs-4 pt-2 bio-summary">
             <h4 class="text-center"><?php echo ucfirst($membre->prenom) . " " . $membre->nom; ?></h4>
-            <h5>Membre depuis: <?php echo substr($membre->dateCrea,0,10); ?></h5>
+            <h5 class="text-center">Membre depuis: <?php echo substr($membre->dateCrea,0,10); ?></h5>
         </div>
     </div>
     <?php
@@ -347,13 +347,14 @@ if ($result->rowCount()==0) { ?>
                 'prixRecette' : $('#recettePrix').val(),
                 'couleurRecette' : $('#couleurRecette').val()
             },
-            success: function(){
+            'success' : function () {
                 window.location.reload();
             }
         });
 
         request.done((result) => {
-            console.log(result)
+            //$('#alertBoxRecette').html(result);
+            console.log(result);
         });
 
         request.fail((result) => {
