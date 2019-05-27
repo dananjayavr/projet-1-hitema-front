@@ -48,12 +48,6 @@ if ($_SESSION['statut'] !== "admin") {
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.php">
-                            <span data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#recettes">
                             <span data-feather="file"></span>
                             Recettes
@@ -186,7 +180,7 @@ if ($_SESSION['statut'] !== "admin") {
                         <th>Nom</th>
                         <th>Date Création Membre</th>
                         <th>Modifier</th>
-                        <th>Bloquer</th>
+                        <th>Bloquer/Débloquer</th>
                         <th>Supprimer</th>
                     </tr>
                     </thead>
@@ -203,8 +197,12 @@ if ($_SESSION['statut'] !== "admin") {
                         <td><?=$membre->prenom;?></td>
                         <td><?=$membre->nom;?></td>
                         <td><?=$membre->dateCrea;?></td>
-                        <td><button class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button></td>
-                        <td><button class="btn btn-warning btn-sm"><i class="fas fa-ban"></i></button></td>
+                        <td><button class="btn btn-primary btn-sm" id="modifierUtilisateur" data-toggle="modal" data-target="#modificationUtilisateur" onclick="modifierUtilisateur(<?=$membre->idMembre?>)" data-id="<?=$membre->idMembre;?>"><i class="far fa-edit"></i></button></td>
+                        <?php if($membre->isBlocked != "true") { ?>
+                            <td class="text-center"><button class="btn btn-warning btn-sm" id="bloquerUtilisateur" data-toggle="modal" data-target="#blocageUtilisateur" data-id="<?=$membre->idMembre;?>"><i class="fas fa-ban" id="banlogo"></i></button></td>
+                        <?php } else { ?>
+                            <td class="text-center"><button class="btn btn-warning btn-sm" id="debloquerUtilisateur" data-toggle="modal" data-target="#deblocageUtilisateur" data-id="<?=$membre->idMembre;?>"><i class="fas fa-unlock-alt" id="unbanlogo"></i></button></td>
+                        <?php } ?>
                         <td><button class="btn btn-danger btn-sm" id="supprimerUtilisateur" data-toggle="modal" data-target="#supprimerCompte" data-id="<?=$membre->idMembre;?>"><i class="far fa-trash-alt"></i></button></td>
                     </tr>
 
@@ -225,6 +223,72 @@ if ($_SESSION['statut'] !== "admin") {
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                                         <button type="button" class="btn btn-danger" id="deleteCompte">Confirmer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Modifier Utilisateur -->
+                        <div class="modal fade" id="modificationUtilisateur" aria-hidden="true" tabindex="-1" role="dialog">
+                            <input id="id_membre" name="idm" type="hidden" value="">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Modifier les informations</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="contentArea"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="button" class="btn btn-primary addRecipe" id="modifierUser">Sauvegarder</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal bloquer utilisateur -->
+                        <div class="modal fade" id="blocageUtilisateur" aria-hidden="true" tabindex="-1" role="dialog">
+                            <input id="compte_id" name="cid" type="hidden" value="">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Bloquer Un Compte Utilisateur</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Attention! L'utilisateur sera bloqué du site.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button type="button" class="btn btn-danger" id="blockUser">Confirmer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal debloquer utilisateur -->
+                        <div class="modal fade" id="deblocageUtilisateur" aria-hidden="true" tabindex="-1" role="dialog">
+                            <input id="compte_id" name="cid" type="hidden" value="">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Débloquer Un Compte Utilisateur</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Attention! L'utilisateur pourra accèder au site à nouveau.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button type="button" class="btn btn-success" id="unblockUser">Confirmer</button>
                                     </div>
                                 </div>
                             </div>
@@ -251,6 +315,7 @@ if ($_SESSION['statut'] !== "admin") {
         var s_id = 0;
         var d_id = 0;
         var c_id = 0;
+        var idm = 0;
 
         $('body').on('click', '#modify',function() {
             document.getElementById("recette_id").value = $(this).attr('data-id');
@@ -268,6 +333,22 @@ if ($_SESSION['statut'] !== "admin") {
             //console.log($(this).attr('data-id'));
             c_id = $(this).attr('data-id');
         });
+        $('body').on('click', '#modifierUtilisateur',function() {
+            document.getElementById("id_membre").value = $(this).attr('data-id');
+            //console.log($(this).attr('data-id'));
+            idm = $(this).attr('data-id');
+        });
+
+        $('body').on('click', '#bloquerUtilisateur',function() {
+            document.getElementById("compte_id").value = $(this).attr('data-id');
+            //console.log($(this).attr('data-id'));
+            idm = $(this).attr('data-id');
+        });
+        $('body').on('click', '#debloquerUtilisateur',function() {
+            document.getElementById("compte_id").value = $(this).attr('data-id');
+            //console.log($(this).attr('data-id'));
+            idm = $(this).attr('data-id');
+        });
 
         $('#save').click(() => {
             sauvegarderRecette(s_id);
@@ -278,7 +359,16 @@ if ($_SESSION['statut'] !== "admin") {
         $('#deleteCompte').click(() => {
             supprimerCompte(c_id);
         });
+        $('#modifierUser').click(() => {
+            sauvegarderUtilsateur(idm);
+        });
 
+        $('#blockUser').click(() => {
+            bloquerUtilisateur(idm);
+        });
+        $('#unblockUser').click(() => {
+            debloquerUtilisateur(idm);
+        });
     });
 
     function supprimerRecette(idRecette) {
@@ -358,6 +448,89 @@ if ($_SESSION['statut'] !== "admin") {
             },
             'success': function(){
                 window.location.reload()
+            }
+        });
+
+        request.done((result) => {
+            console.log(result);
+        });
+
+        request.fail((result) => {
+            console.log(result);
+        });
+    }
+
+    function modifierUtilisateur(idUtilisateur) {
+        let request = $.ajax({
+            'url': 'ajax/modifierCompte.php',
+            'type': 'POST',
+            'data': {
+                'idUtilisateur': idUtilisateur
+            }
+        });
+
+        request.done((result) => {
+            $('#contentArea').html(result);
+        });
+
+        request.fail((result) => {
+            console.log(result)
+        });
+    }
+
+    function sauvegarderUtilsateur(idUtilisateur) {
+
+        let request = $.ajax({
+            'url' : 'ajax/sauvegarderCompte.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idUtilisateur,
+                'nouveauLogin' : $('#login').val(),
+                'nouveauPrenom' : $('#prenom').val(),
+                'nouveauNom' : $('#nom').val(),
+                'statutMembre' : $('#statutMembre').val()
+            }
+        });
+
+        request.done((result) => {
+            $('#alertZone').html(result);
+        });
+
+        request.fail((result) => {
+            console.log(result);
+        })
+    }
+
+    function bloquerUtilisateur(idMembre) {
+        let request = $.ajax({
+            'url' : 'ajax/bloquerUtilisateur.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idMembre
+            },
+            'success' : () => {
+                window.location.reload();
+            }
+        });
+
+        request.done((result) => {
+            console.log(result);
+        });
+
+        request.fail((result) => {
+            console.log(result);
+        })
+    }
+
+    function debloquerUtilisateur(idMembre) {
+        let request = $.ajax({
+            'url' : 'ajax/debloquerUtilisateur.php',
+            'type' : 'POST',
+            'data' : {
+                'idUtilisateur' : idMembre
+            },
+            'success' : () => {
+                window.location.reload();
             }
         });
 

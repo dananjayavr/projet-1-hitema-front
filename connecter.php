@@ -15,7 +15,7 @@ $result = $pdo->query($query);
 $user = $result->fetch(PDO::FETCH_OBJ);
 
 if(!empty($_POST)) {
-    if($user && password_verify($mp,$user->password)) {
+    if(($user && password_verify($mp,$user->password)) and $user->isBlocked!=="true") {
 
         $_SESSION['idMembre'] = $user->idMembre;
         $_SESSION['gravatar'] = $user->gravatar;
@@ -24,8 +24,16 @@ if(!empty($_POST)) {
         $_SESSION['prenom'] = $user->prenom;
         $_SESSION['nom'] = $user->nom;
 
-        header('Location: membre-detail.php?idm='.$_SESSION['idMembre']);
-    } else { ?>
+        header('Location: membre-detail.php?idm=' . $_SESSION['idMembre']);
+    } else if ($user->isBlocked == "true") { ?>
+        <script>
+            $(document).ready(() => {
+                $('.alertBox').append("<div class=\"alert alert-warning\" role=\"alert\">\n" +
+                    "  Votre compte a été bloqué. Veuillez-contacter un administrateur à admin@cooking.fr" +
+                    "</div>");
+            });
+        </script>
+    <?php } else { ?>
         <script>
             $(document).ready(() => {
                 $('.alertBox').append("<div class=\"alert alert-danger\" role=\"alert\">\n" +
